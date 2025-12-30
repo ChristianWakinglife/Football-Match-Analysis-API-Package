@@ -296,6 +296,14 @@ const MLGenerationButton = ({ onRun, loading, status }) => {
       >
         <AnalysisStatusDisplay status={status} mlRunning={loading} />
 
+
+
+
+
+
+
+        
+
         <Box
           sx={{
             position: "absolute",
@@ -1682,6 +1690,27 @@ const MasterSlipAnalysisPage = () => {
                   Quick Actions
                 </Typography>
                 <Stack spacing={1}>
+                  <Button
+                    fullWidth
+                    startIcon={<AutoGraph />}
+                    variant="outlined"
+                    onClick={() => navigate(`/generatedslips/${id}/slips`)} // This is the key line
+                    sx={{
+                      justifyContent: "flex-start",
+                      borderColor: alpha(
+                        DARK_THEME.palette.background.surface3,
+                        0.5
+                      ),
+                      color: DARK_THEME.palette.text.secondary,
+                      py: 1.5,
+                      "&:hover": {
+                        borderColor: DARK_THEME.palette.accents.primary,
+                        color: DARK_THEME.palette.text.primary,
+                      },
+                    }}
+                  >
+                    View Generated Slips
+                  </Button>
                   <Button
                     fullWidth
                     startIcon={<CompareArrows />}

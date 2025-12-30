@@ -226,29 +226,78 @@ class HedgingEngine:
             
         return (match_data.selected_market.market_name, original_selection, match_data.original_odds)
 
-    def generate_portfolio_coverage(self, matches: List[MatchData], num_slips: int = 50) -> List[List[Tuple[str, str, str]]]:
+    def generate_strategic_portfolio(self, matches: List[MatchData], num_slips: int = 50) -> List[List[Tuple[str, str, str]]]:
+        """Generate slips strategically: high-risk/high-reward to safe hedges"""
         portfolio = []
-        if not matches: return portfolio
+        if not matches or num_slips <= 0:
+            return portfolio
         
-        # Distributions based on system context requirements
-        dist = [
-            ('core', 0.35), ('hedge', 0.30), ('balanced', 0.25), ('high_risk', 0.10)
+        # Define strategy types with target distribution
+        strategies = [
+            # (strategy_name, weight, description)
+            ("high_risk", 0.25, "High odds, low probability - big returns"),
+            ("balanced_high", 0.25, "Moderate risk with good return potential"),
+            ("hedge_coverage", 0.30, "Spread selections to cover multiple outcomes"),
+            ("safe_return", 0.20, "Lower returns but higher probability")
         ]
         
-        for h_type, pct in dist:
-            count = max(1, int(num_slips * pct))
+        # Generate configs for each strategy
+        for strategy, weight, _ in strategies:
+            count = max(1, int(num_slips * weight))
+            
             for _ in range(count):
                 config = []
-                for _ in matches:
-                    # High risk always forces opposite, others vary
-                    act_type = 'opposite' if h_type == 'high_risk' else h_type
-                    if h_type == 'balanced' and self.random.random() > 0.5:
-                        act_type = 'core'
-                    config.append((act_type, 'any', 'any'))
+                for i, match in enumerate(matches):
+                    # Apply strategy logic per match
+                    if strategy == "high_risk":
+                        # Always pick opposite for maximum risk/reward
+                        config.append(("opposite", "any", "any"))
+                    
+                    elif strategy == "balanced_high":
+                        # Mix of core and opposite (60/40)
+                        if self.random.random() < 0.6:
+                            config.append(("core", "any", "any"))
+                        else:
+                            config.append(("opposite", "any", "any"))
+                    
+                    elif strategy == "hedge_coverage":
+                        # Spread across different markets for maximum coverage
+                        # Alternate between core, opposite, and correlated
+                        choice = i % 3
+                        if choice == 0:
+                            config.append(("core", "any", "any"))
+                        elif choice == 1:
+                            config.append(("opposite", "any", "any"))
+                        else:
+                            config.append(("correlated", "any", "any"))
+                    
+                    elif strategy == "safe_return":
+                        # Mostly core selections (80%) with some hedge
+                        if self.random.random() < 0.8:
+                            config.append(("core", "any", "any"))
+                        else:
+                            config.append(("opposite", "any", "any"))
+                
                 portfolio.append(config)
         
-        # Ensure exact count
-        return portfolio[:num_slips] if len(portfolio) >= num_slips else portfolio
+        # Trim to exact count and add randomness
+        final_portfolio = portfolio[:num_slips]
+        
+        # If we need more, fill with random strategies
+        while len(final_portfolio) < num_slips:
+            config = []
+            for _ in matches:
+                # Random strategy for remaining slips
+                rand = self.random.random()
+                if rand < 0.33:
+                    config.append(("core", "any", "any"))
+                elif rand < 0.66:
+                    config.append(("opposite", "any", "any"))
+                else:
+                    config.append(("correlated", "any", "any"))
+            final_portfolio.append(config)
+        
+        return final_portfolio
 
 class SlipVariationGenerator:
     """Generates slip variations - Hardened against math errors """
@@ -297,14 +346,6 @@ class SlipVariationGenerator:
         except Exception as e:
             logger.error(f"Failed to generate slip variation: {e}")
             return None
-
-    def _calculate_confidence(self, legs: List[Dict], v_type: str) -> float:
-        base = {"core": 0.8, "hedge": 0.6, "balanced": 0.5, "high_risk": 0.3}.get(v_type, 0.5)
-        avg_odds = np.mean([l['odds'] for l in legs]) if legs else 2.0
-        # Inverse relationship: higher odds = lower confidence
-        adjustment = 0.1 if avg_odds < 2.0 else -0.1 if avg_odds > 5.0 else 0
-        return float(np.clip(base + adjustment, 0.1, 0.95))
-
 class PortfolioOptimizer:
     """Safely distributes total_stake across the generated slips"""
     
@@ -328,6 +369,43 @@ class PortfolioOptimizer:
                 s['possible_return'] = round(eq * s['total_odds'], 2)
                 
         return slips
+
+def _calculate_confidence(self, legs: List[Dict], v_type: str) -> float:
+    """Calculate confidence based on actual slip characteristics"""
+    try:
+        # Base confidence by variation type
+        base_conf = {
+            "core": 0.7,  # Original selections
+            "opposite": 0.3,  # Opposite selections (risky)
+            "correlated": 0.5,  # Related markets
+            "hedge": 0.6,  # Hedge strategies
+        }.get(v_type, 0.5)
+        
+        # Analyze actual slip content
+        avg_odds = np.mean([l.get('odds', 2.0) for l in legs]) if legs else 2.0
+        
+        # Odds-based adjustment: higher odds = lower confidence
+        if avg_odds < 1.8:
+            odds_factor = 0.15  # Low odds = higher confidence
+        elif avg_odds < 3.0:
+            odds_factor = 0.0  # Moderate odds = neutral
+        elif avg_odds < 5.0:
+            odds_factor = -0.15  # Higher odds = lower confidence
+        else:
+            odds_factor = -0.25  # Very high odds = much lower confidence
+        
+        # Market diversity factor
+        markets = [l.get('market', '') for l in legs]
+        unique_markets = len(set(markets))
+        diversity_factor = (unique_markets / len(legs)) * 0.1 if legs else 0
+        
+        # Final confidence (clamped between 0.1 and 0.95)
+        confidence = base_conf + odds_factor + diversity_factor
+        return float(np.clip(confidence, 0.1, 0.95))
+        
+    except Exception:
+        return 0.5  # Safe fallback
+    
 
 class SlipBuilder:
     """The main orchestrator: Hardened for production-grade stability"""
@@ -414,8 +492,8 @@ class SlipBuilder:
             print(f"✅  Match data extracted: {len(matches)} matches ready")
             
             # 3. Plan Portfolio
-            print("🎯  Planning portfolio coverage...")
-            configs = self.hedging_engine.generate_portfolio_coverage(matches, 50)
+            print("🎯  Planning STRATEGIC portfolio...")
+            configs = self.hedging_engine.generate_strategic_portfolio(matches, 50)
             print(f"📊  Portfolio planned: {len(configs)} slip configurations")
             
             # 4. Generate Variations

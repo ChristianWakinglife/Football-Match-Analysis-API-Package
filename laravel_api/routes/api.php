@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\MarketController;
 use App\Http\Controllers\Api\JobController;
 use App\Http\Controllers\Api\MasterSlipController;
 use App\Http\Controllers\Api\PythonCallbackController;
+use App\Http\Controllers\Api\GeneratedSlipController;
 
 
 
@@ -238,3 +239,16 @@ Route::get('/teams-data/insert/{id}', [MasterSlipController::class, 'insertTempo
 Route::post('/python-callback/{masterSlipId}', [PythonCallbackController::class, 'handleCallback'])
     ->where('masterSlipId', '[0-9]+')
     ->name('python.callback');
+
+Route::get('/master-slips/{masterSlipId}/generated-slips', [GeneratedSlipController::class, 'getGeneratedSlips'])
+    ->where('masterSlipId', '[0-9]+')
+    ->name('generated-slips.get');
+
+Route::get('/generated-slips/{generatedSlipId}', [GeneratedSlipController::class, 'getSlipDetail'])
+    ->where('generatedSlipId', '[0-9]+')
+    ->name('generated-slips.detail');
+
+// Delete all generated slips for a master slip
+Route::delete('/master-slips/{masterSlipId}/generated-slips', [GeneratedSlipController::class, 'destroyAllByMasterSlip'])
+    ->where('masterSlipId', '[0-9]+')
+    ->name('generated-slips.destroy-all');

@@ -138,7 +138,6 @@ const slipApi = {
     }
   },
 
-
   runSlipAnalysis: async (slipId) => {
     try {
       const response = await axios.post(`${API_URL}/slips/${slipId}/analyze`);
@@ -149,16 +148,15 @@ const slipApi = {
     }
   },
 
-    checkAnalysisStatus: async (slipId) => {
+  checkAnalysisStatus: async (slipId) => {
     try {
       const response = await axios.get(`${API_URL}/slips/${slipId}/status`);
       return response.data;
     } catch (error) {
-      console.error('Error checking analysis status:', error);
+      console.error("Error checking analysis status:", error);
       throw error;
     }
   },
-
 
   // FILTER FUNCTION - Add this new function
   filterSlips: (slips, criteria) => {
@@ -240,6 +238,23 @@ const slipApi = {
       console.error("Error fetching slip analysis:", error);
       throw error;
     }
+  },
+  getGeneratedSlips: async (masterslipid) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/master-slips/${masterslipid}/generated-slips`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching slip analysis:", error);
+      throw error;
+    }
+  },
+
+  deleteAllGeneratedSlips: (masterSlipId) => {
+    return axios.delete(
+      `${API_URL}/master-slips/${masterSlipId}/generated-slips`
+    );
   },
 };
 
