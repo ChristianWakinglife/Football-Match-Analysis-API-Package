@@ -414,6 +414,12 @@ class Team extends Model
         ];
     }
 
+    //temporary
+    public function leaguePosition()
+    {
+        return random_int(1, 18);
+    }
+
     // Scopes
     public function scopeTopTeams($query, int $limit = 10)
     {

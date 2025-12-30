@@ -46,10 +46,17 @@ class StoreMatchRequest extends FormRequest
             'away_form.form_momentum' => 'nullable|numeric|min:-10|max:10',
             'away_form.raw_form' => 'nullable|array',
 
-            'head_to_head' => 'nullable|array',
-            'head_to_head.home_wins' => 'nullable|integer|min:0',
-            'head_to_head.away_wins' => 'nullable|integer|min:0',
-            'head_to_head.draws' => 'nullable|integer|min:0',
+            'head_to_head_stats' => 'nullable|array',
+            'head_to_head_stats.home_wins' => 'nullable|integer|min:0',
+            'head_to_head_stats.away_wins' => 'nullable|integer|min:0',
+            'head_to_head_stats.draws' => 'nullable|integer|min:0',
+            //last_meetings
+            'head_to_head_stats.total_meetings' => 'nullable|integer|min:0',
+            'head_to_head_stats.last_meetings' => 'nullable|array',
+            'head_to_head_stats.home_goals' => 'nullable|integer|min:0',
+            'head_to_head_stats.away_goals' => 'nullable|integer|min:0',
+            'head_to_head_stats.avg_goals_per_match' => 'nullable|numeric|min:0',
+            'markets' => 'nullable|array',
 
             // 'odds' => 'nullable|array',
 

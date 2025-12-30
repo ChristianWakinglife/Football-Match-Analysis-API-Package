@@ -19,4 +19,11 @@ class GeneratedSlipLeg extends Model
     {
         return $this->belongsTo(GeneratedSlip::class, 'generated_slip_id');
     }
+
+    //belongs to match
+
+    public function match(): BelongsTo
+    {
+        return $this->belongsTo(MatchModel::class, 'match_id');
+    }
 }

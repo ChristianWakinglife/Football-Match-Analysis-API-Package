@@ -1,62 +1,107 @@
+# game_engine/engine/scoring.py (Updated)
+"""
+Updated scoring engine that evaluates slip quality based on selections
+"""
+
+import numpy as np
 from typing import List, Dict, Any
-import math
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class ScoringEngine:
-    """
-    Evaluates and ranks generated slips based on Expected Value (EV),
-    Confidence, and Risk-to-Reward ratios.
-    """
-
-    @staticmethod
-    def calculate_edge(simulated_prob: float, market_odds: float) -> float:
+    """Evaluates slip quality based on selection consistency and hedging"""
+    
+    def __init__(self):
+        self.selection_consistency_weights = {
+            'core': 1.2,      # Higher weight for core selections
+            'hedge': 1.0,     # Standard weight for hedges
+            'balanced': 0.9,  # Slightly lower for balanced
+            'high_risk': 0.7  # Lower weight for high risk
+        }
+    
+    def calculate_confidence_score(self, slip: Dict) -> float:
         """
-        Calculates the 'Edge' or Expected Value (EV).
-        Formula: (Probability * Odds) - 1
-        A positive result indicates the selection is underpriced by the bookmaker.
+        Calculate confidence score based on:
+        1. Selection consistency
+        2. Odds appropriateness
+        3. Market diversity
+        4. Portfolio fit
         """
-        if market_odds <= 1.0:
-            return 0.0
+        try:
+            legs = slip.get('legs', [])
+            variation_type = slip.get('variation_type', 'balanced')
+            
+            if not legs:
+                return 0.5
+            
+            # Base score from variation type
+            base_score = self.selection_consistency_weights.get(variation_type, 1.0)
+            
+            # Calculate odds consistency
+            odds_scores = []
+            for leg in legs:
+                odds = leg.get('odds', 1.0)
+                if odds < 1.1:
+                    odds_scores.append(0.3)  # Too low odds
+                elif odds < 2.0:
+                    odds_scores.append(0.8)  # Good odds range
+                elif odds < 5.0:
+                    odds_scores.append(0.6)  # Moderate odds
+                else:
+                    odds_scores.append(0.4)  # Very high odds
+            
+            avg_odds_score = np.mean(odds_scores) if odds_scores else 0.5
+            
+            # Calculate market diversity score
+            markets = [leg.get('market', '') for leg in legs]
+            unique_markets = len(set(markets))
+            market_score = min(1.0, unique_markets / len(markets) * 1.5)
+            
+            # Calculate selection clarity score
+            selections = [leg.get('selection', '') for leg in legs]
+            clear_selections = all(s and s != 'N/A' for s in selections)
+            clarity_score = 1.0 if clear_selections else 0.3
+            
+            # Combine scores
+            final_score = (
+                base_score * 0.3 +
+                avg_odds_score * 0.3 +
+                market_score * 0.2 +
+                clarity_score * 0.2
+            )
+            
+            return max(0.1, min(0.95, final_score))
+            
+        except Exception as e:
+            logger.warning(f"Confidence scoring failed: {e}")
+            return 0.5
+    
+    def rank_slips(self, slips: List[Dict]) -> List[Dict]:
+        """Rank slips by quality score"""
+        if not slips:
+            return slips
         
-        # EV calculation: If we run this match 100 times, how much do we keep?
-        edge = (simulated_prob * market_odds) - 1
-        return round(edge, 4)
-
-    def calculate_confidence_score(self, match_sims: List[Dict[str, Any]]) -> float:
-        """
-        Calculates a score from 0-100 based on simulation success 
-        and market value.
-        """
-        total_score = 0
+        # Calculate scores for all slips
+        scored_slips = []
+        for slip in slips:
+            score = self.calculate_confidence_score(slip)
+            slip['confidence_score'] = score
+            scored_slips.append(slip)
         
-        for m in match_sims:
-            # sim_success is the % of 10,000 iterations that hit
-            sim_success_rate = m['sim_success'] 
-            
-            # FIX: Changed m['match'].markets[0].odds to m['match'].selected_market.odds
-            market_odds = m['match'].selected_market.odds
-            
-            # Implied probability from the bookmaker
-            market_implied = 1 / market_odds
-            
-            # A 'Value' score: How much higher is our simulation than the bookie's odds?
-            value_gap = max(0, sim_success_rate - market_implied)
-            
-            # Weight: 80% on pure simulation hit rate, 20% on the 'value' found
-            match_score = (sim_success_rate * 80) + (value_gap * 20)
-            total_score += match_score
-
-        # Average across all matches in the slip
-        avg_score = total_score / len(match_sims)
-        return round(avg_score, 2)
-
+        # Sort by score (descending)
+        scored_slips.sort(key=lambda x: x['confidence_score'], reverse=True)
+        
+        return scored_slips
+    
     def assign_risk_category(self, confidence_score: float) -> str:
-        if confidence_score > 75:
-            return "Low Risk"
-        elif confidence_score > 50:
-            return "Medium Risk"
+        """Assign risk category based on confidence score"""
+        if confidence_score >= 0.8:
+            return "Low"
+        elif confidence_score >= 0.6:
+            return "Medium"
+        elif confidence_score >= 0.4:
+            return "High"
         else:
-            return "High Risk"
-
-    def rank_slips(self, slips: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        # Sorts slips so Laravel receives the best ones first
-        return sorted(slips, key=lambda x: x['confidence_score'], reverse=True)
+            return "Very High"

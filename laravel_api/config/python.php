@@ -16,7 +16,7 @@ return [
         'url' => env('PYTHON_SERVICE_URL', 'http://localhost:5000'),
 
         // Timeout in seconds
-        'timeout' => env('PYTHON_SERVICE_TIMEOUT', 30),
+        'timeout' => env('PYTHON_SERVICE_TIMEOUT', 60),
 
         // Retry attempts
         'retry_attempts' => env('PYTHON_SERVICE_RETRIES', 3),

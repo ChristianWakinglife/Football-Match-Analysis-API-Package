@@ -15,6 +15,8 @@ use App\Models\MatchModel;
 use App\Models\MatchMarket;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use App\Models\Team_Form;
+use App\Jobs\PrepareMLMatchDataJob;
 
 use Illuminate\Http\JsonResponse;
 
@@ -326,6 +328,82 @@ class MasterSlipController extends Controller
             ]);
             // Do not fail the whole operation if totals fail
         }
+    }
+
+    // prepare match for ml
+    public function prepareMatchDataForML( int $masterSlipId): JsonResponse
+    {
+        // Dispatch the job to prepare ML match data
+        $match = MasterSlip::with([
+            'matches' => function ($query) {
+                $query->with([
+                    'homeTeam' => function ($teamQuery) {
+                        $teamQuery->with(['leaguePosition', 'statistics']);
+                    },
+                    'awayTeam' => function ($teamQuery) {
+                        $teamQuery->with(['leaguePosition', 'statistics']);
+                    },
+                    'league',
+                    'competition',
+                    'season',
+                    'venue',
+                    'referee',
+                    'weather',
+                    'markets' => function ($marketQuery) {
+                        $marketQuery->with([
+                            'outcomes',
+                            'marketType'
+                        ]);
+                    }
+                ]);
+            },
+            'riskProfile'
+        ])->find($masterSlipId);
+
+        return response()->json([
+            'success' => true,
+            'masterslip' => $match,
+        ]);
+    }
+
+    //get team form using team id
+
+public function teamFormData(int $teamId): JsonResponse
+{
+    $teamform = Team_Form::where('team_id', $teamId)
+        ->select([
+            '*',
+        ])
+        ->selectRaw('
+            team_id_old_od,
+            team_old_id,
+            match_id_old_od,
+            venue_old_old
+        ')
+        ->first();
+
+    return response()->json([
+        'success' => true,
+        'team' => $teamform,
+    ]);
+}
+
+
+    public function insertTemporaryForm(int $id)
+    {
+      $result =  DB::table('team_forms')->updateOrInsert(
+            ['team_id' => $id],
+            [
+                'league_position' => random_int(3, 7),
+                'points' => random_int(18, 50),
+                // 'country' => 'England',
+                // 'league' => 'Premier League',
+                'updated_at' => now(),
+                'created_at' => now(),
+            ]
+        );
+
+        return $result;
     }
 
 }

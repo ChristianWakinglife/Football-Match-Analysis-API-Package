@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\MatchController;
 use App\Http\Controllers\Api\TeamController;
-// use App\Http\Controllers\Api\TeamFormController as ApiTeamFormController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +12,7 @@ use App\Http\Controllers\Api\GeneratorController;
 use App\Http\Controllers\Api\MarketController;
 use App\Http\Controllers\Api\JobController;
 use App\Http\Controllers\Api\MasterSlipController;
+use App\Http\Controllers\Api\PythonCallbackController;
 
 
 
@@ -56,19 +56,15 @@ Route::get('/test', function (Request $request) {
 // match
 Route::prefix('matches')->group(function () {
     Route::get('/', [MatchController::class, 'index']);
-    Route::post('/', [MatchController::class, 'store']);
-    // Route::post('/', function () { 
-    //     return response()->json(request()->all());
-    // });
+    Route::post('/', [MatchController::class, 'storeMatchData']);
     Route::get('/{id}', [MatchController::class, 'show']);
     Route::put('/{id}', [MatchController::class, 'update']);
     Route::delete('/{id}', [MatchController::class, 'destroy']);
     Route::get('/for-ml', [MatchController::class, 'getMatchesForML']);
     Route::post('/{id}/prediction', [MatchController::class, 'updatePrediction']);
     Route::get('/search', [MatchController::class, 'searchTeams']);
-    // tdb
+
     Route::get('/{id}/stats', [MatchController::class, 'stats']);
-    // getMatchForBetslip
 });
     // getMatchesForBetslip
 Route::get('/getMatches-betslip', [MatchController::class, 'getMatchesAllForBetslip']);
@@ -77,7 +73,7 @@ Route::get('/single-betslip/{id}', [MatchController::class, 'getMatchForBetslip'
 Route::post('/matches/{id}/generate-predictions', [MatchController::class, 'generatePredictions'])
     ->name('matches.generate-predictions');
 
-// team
+
 Route::prefix('teams')->group(function () {
     Route::get('/', [TeamController::class, 'index']);
     Route::post('/', [TeamController::class, 'store']);
@@ -124,15 +120,6 @@ Route::get('/health', function () {
     return response()->json(['status' => 'healthy']);
 });
 
-// // Root test endpoint
-// Route::get('/', function () {
-//     return response()->json(['message' => 'API is running']);
-// });
-
-// Matches (RESTful + customs)
-
-// Teams (RESTful, but using {code} instead of {id})
-
 
 // Head-to-Head
 Route::group(['prefix' => 'head-to-head'], function () {
@@ -142,7 +129,6 @@ Route::group(['prefix' => 'head-to-head'], function () {
     Route::get('/calculate', [Head_To_Head_Controller::class, 'calculate']); // home_team, away_team params
 });
 
-// Slips (RESTful + customs)
 Route::post('/master-slips', [MasterSlipController::class, 'store']);
 // Route::apiResource('slips', SlipController::class);
 Route::post('slips/master', [SlipController::class, 'createMaster']);
@@ -154,15 +140,9 @@ Route::get('generator/status/{jobId}', [GeneratorController::class, 'status']);
 Route::get('generator/jobs', [GeneratorController::class, 'listJobs']);
 Route::post('generator/{jobId}/cancel', [GeneratorController::class, 'cancel']);
 
-// Markets (RESTful)
-// Route::apiResource('markets', MarketController::class);
+
 Route::get('markets/{marketId}/outcomes', [MarketController::class, 'outcomes']);
 
-// Predictions (if implemented, add resource)
-// Route::apiResource('predictions', PredictionController::class);
-
-// Add auth middleware if needed, e.g.:
-// Route::middleware('auth:sanctum')->group(function () { ... });
 
 
 
@@ -199,6 +179,7 @@ Route::prefix('slips')->group(function () {
     Route::get('/recent', [SlipController::class, 'getRecentSlips']);
 });
 
+
 // Alternative route naming for frontend compatibility
 Route::prefix('master-slips')->group(function () {
     Route::get('/{masterSlipId}/slips', [SlipController::class, 'getGeneratedSlips']);
@@ -232,6 +213,7 @@ Route::get('/slips/{id}/status', [SlipController::class, 'checkAnalysisStatus'])
 
 Route::post('/slips/{id}/add-match', [MasterslipController::class, 'addMatchToMasterSlip']);
 
+
     // Market endpoints
  Route::get('markets', [MarketController::class, 'index']);
     
@@ -244,3 +226,15 @@ Route::prefix('jobs')->group(function () {
     
     // Optional: Statistics endpoint
     Route::get('stats/matches', [\App\Http\Controllers\Api\StatsController::class, 'matches']);
+
+Route::get('prepareMatchData/{masterSlipId}', [MasterSlipController::class, 'prepareMatchDataForML']);
+//get team form
+Route::get('/team-form/{teamId}', [MasterSlipController::class, 'teamFormData']);
+// insertTemporaryForm
+Route::get('/teams-data/insert/{id}', [MasterSlipController::class, 'insertTemporaryForm']);
+
+// python response
+
+Route::post('/python-callback/{masterSlipId}', [PythonCallbackController::class, 'handleCallback'])
+    ->where('masterSlipId', '[0-9]+')
+    ->name('python.callback');

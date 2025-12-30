@@ -1,74 +1,88 @@
 # game_engine/schemas.py
 
-from pydantic import BaseModel
-from typing import List, Dict, Any, Optional
+from pydantic import BaseModel, Field, validator
+from typing import List, Dict, Any, Optional, Union
+from decimal import Decimal
+import re
 
-class MarketOption(BaseModel):
-    selection: Optional[str] = None
-    score: Optional[str] = None
-    handicap: Optional[str] = None
-    odds: float
-    implied_probability: float
+class FlexibleIDMixin:
+    """Mixin to handle flexible ID types (string or integer)"""
+    
+    @validator('match_id', 'master_slip_id', 'original_master_slip_id', 'team_id', 
+               'slip_id', 'match_id', pre=True, check_fields=False)
+    def convert_to_string(cls, v):
+        """Convert any ID value to string"""
+        if v is None:
+            return ""
+        return str(v)
 
-class FullMarket(BaseModel):
-    market_name: str
-    options: List[MarketOption]
-
-class SelectedMarket(BaseModel):
-    market_type: str
+class SlipLeg(BaseModel, FlexibleIDMixin):
+    match_id: str = Field(..., description="Match ID as string")
+    market: str
     selection: str
     odds: float
-    implied_probability: float
-    confidence_rating: float
+    is_fallback: bool = False
+    
+    class Config:
+        arbitrary_types_allowed = True
 
-class MatchModelInputs(BaseModel):
-    home_form_weight: float
-    away_form_weight: float
-    h2h_weight: float
-    venue_advantage: float
-    expected_goals: float # Required for the Poisson calculation
-    home_xg: float
-    away_xg: float
-    volatility_score: float
+class GeneratedSlip(BaseModel, FlexibleIDMixin):
+    slip_id: str = Field(..., description="Slip ID as string")
+    legs: List[SlipLeg]
+    total_odds: float
+    confidence_score: float
+    stake: float = Field(default=0.0)
+    possible_return: float = Field(default=0.0)
+    risk_level: str = Field(default="Unknown Risk")
+    error: Optional[str] = None
+    variation_type: Optional[str] = None
+    edge_score: Optional[float] = Field(default=0.0)
 
-class MatchData(BaseModel):
+class MatchData(BaseModel, FlexibleIDMixin):
+    """Flexible match data model accepting both string and integer IDs"""
     match_id: str
     home_team: str
     away_team: str
-    # Made these Optional so the request doesn't fail if they are missing
-    home_form: Optional[Dict[str, Any]] = None
-    away_form: Optional[Dict[str, Any]] = None
+    venue: str = "Neutral"
+    home_team_id: Optional[str] = None
+    away_team_id: Optional[str] = None
+    selected_market: Optional[Dict[str, Any]] = None
+    full_markets: List[Dict[str, Any]] = Field(default_factory=list)
+    team_form: Optional[Dict[str, Any]] = None
     head_to_head: Optional[Dict[str, Any]] = None
-    selected_market: SelectedMarket
-    full_markets: List[FullMarket]
-    model_inputs: MatchModelInputs
+    model_inputs: Optional[Dict[str, Any]] = None
+    probabilities: Optional[Dict[str, float]] = None
+    
+    @validator('match_id', 'home_team_id', 'away_team_id', pre=True)
+    def normalize_ids(cls, v):
+        if v is None:
+            return ""
+        return str(v)
 
-class MasterSlipData(BaseModel):
+class MasterSlipData(BaseModel, FlexibleIDMixin):
+    """Flexible master slip data model"""
     master_slip_id: str
-    stake: float
-    currency: str
-    risk_profile: str
+    original_master_slip_id: Optional[str] = None
+    stake: float = Field(ge=0.0)
+    currency: str = "EUR"
     matches: List[MatchData]
+    
+    @validator('master_slip_id', 'original_master_slip_id', pre=True)
+    def normalize_slip_ids(cls, v):
+        if v is None:
+            return ""
+        return str(v)
 
 class MasterSlipRequest(BaseModel):
     master_slip: MasterSlipData
 
-# Output Schemas remain the same
-class SlipLeg(BaseModel):
-    match_id: str
-    market: str
-    selection: str
-    odds: float
-
-class GeneratedSlip(BaseModel):
-    slip_id: str
-    stake: float
-    total_odds: float
-    possible_return: float
-    risk_level: str
-    legs: List[SlipLeg]
-    confidence_score: float
-
-class EngineResponse(BaseModel):
+class EngineResponse(BaseModel, FlexibleIDMixin):
     master_slip_id: str
     generated_slips: List[GeneratedSlip]
+    metadata: Optional[Dict[str, Any]] = Field(default_factory=dict)
+    
+    @validator('master_slip_id', pre=True)
+    def normalize_master_slip_id(cls, v):
+        if v is None:
+            return ""
+        return str(v)

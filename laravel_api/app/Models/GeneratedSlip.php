@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+
+
+
 class GeneratedSlip extends Model
 {
     protected $fillable = [
@@ -17,6 +20,10 @@ class GeneratedSlip extends Model
         'risk_level',
         'confidence_score',
         'raw_data',
+        'variation_type', // New field
+        'edge_score',    // New field
+        'error',         // New field
+
     ];
 
     protected $casts = [
@@ -25,6 +32,8 @@ class GeneratedSlip extends Model
         'total_odds' => 'decimal:2',
         'possible_return' => 'decimal:2',
         'confidence_score' => 'decimal:2',
+        'edge_score' => 'decimal:4',
+
     ];
 
     public function masterSlip(): BelongsTo

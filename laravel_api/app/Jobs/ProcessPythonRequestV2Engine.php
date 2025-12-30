@@ -73,20 +73,23 @@ class ProcessPythonRequestV2Engine implements ShouldQueue
                 ->{$this->method}($this->endpoint, $this->payload);
 
             if ($response->successful()) {
-                $data = $response->json();
+                $results = $response->json();
 
-                // Update master slip with results
-                if ($this->masterSlipId) {
-                    $this->storeResults($data);
+                   // Validate response 
+
+                   //TODO: make sure python sends array with generated_slips if not change this to what python sends 
+                if (!isset($result['generated_slips']) || empty($result['generated_slips'])) {
+                    throw new \Exception('Python engine returned no generated slips');
                 }
+        
 
                 Log::info('Python request completed successfully', [
                     'job_id' => $this->jobId,
                     'master_slip_id' => $this->masterSlipId,
-                    'processing_time' => $data['processing_time'] ?? null,
+                    'processing_time' => $results['processing_time'] ?? null,
                 ]);
 
-                return $data;
+                return $results;
             } else {
                 throw new \Exception(
                     "Python API returned error: " . $response->status() .

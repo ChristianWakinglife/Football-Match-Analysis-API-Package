@@ -13,7 +13,7 @@ class HistoricalResults extends Model
     protected $table = 'historical_results';
     protected $fillable = [
         'match_id', 'home_team', 'away_team', 'league',
-        'match_date', 'result', 'odds_data'
+        'match_date', 'result', 'odds_data', 'venue',
     ];
 
     protected $casts = [

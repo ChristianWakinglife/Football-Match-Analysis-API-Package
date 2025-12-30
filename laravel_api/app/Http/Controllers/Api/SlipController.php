@@ -852,7 +852,6 @@ class SlipController extends Controller
             ], 500);
         }
     }
-
     public function checkAnalysisStatus($id)
     {
         try {

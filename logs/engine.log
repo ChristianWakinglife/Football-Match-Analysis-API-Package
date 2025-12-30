@@ -19,3 +19,252 @@ AttributeError: 'MatchData' object has no attribute 'markets'
 2025-12-20 01:59:17,295 [INFO] engine_logger: --- Starting Generation for Master Slip: MSL-20240515-001 ---
 2025-12-20 01:59:17,347 [INFO] engine_logger: Successfully generated 100 slips for MSL-20240515-001
 2025-12-20 01:59:17,392 [INFO] engine_logger: POST /generate-slips | Status: 200 | Time: 0.1268s
+2025-12-27 15:18:55,792 [INFO] engine_logger: POST /generate-slips | Status: 422 | Time: 0.0160s
+2025-12-27 15:18:57,190 [INFO] engine_logger: POST /generate-slips | Status: 422 | Time: 0.0080s
+2025-12-27 18:48:12,399 - engine_logger - INFO - app:186 - Request: POST /generate-slips
+2025-12-27 18:48:12,399 - engine_logger - ERROR - app:126 - GLOBAL ERROR: NameError at /generate-slips
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_utils.py", line 79, in collapse_excgroups
+  |     yield
+  |   File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 192, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\_backends\_asyncio.py", line 783, in __aexit__
+  |     raise BaseExceptionGroup(
+  | exceptiongroup.ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |   File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    |     self.gen.throw(typ, value, traceback)
+    |   File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |   File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\app.py", line 195, in log_requests
+    |     start_time = time.time()
+    | NameError: name 'time' is not defined
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\app.py", line 195, in log_requests
+    start_time = time.time()
+NameError: name 'time' is not defined
+2025-12-27 19:50:20,873 - engine_logger - INFO - app:189 - Request: POST /generate-slips
+2025-12-27 19:50:20,889 - engine_logger - INFO - app:224 - Starting slip generation for master_slip_id: MSL-20240515-001
+2025-12-27 19:50:20,920 - engine_logger - INFO - app:242 - Successfully generated 1 slips for master_slip_id: MSL-20240515-001
+2025-12-27 19:50:20,920 - engine_logger - ERROR - app:129 - GLOBAL ERROR: ResponseValidationError at /generate-slips
+Traceback (most recent call last):
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\app.py", line 199, in log_requests
+    response = await call_next(request)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 119, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 105, in app
+    response = await f(request)
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 407, in app
+    content = await serialize_response(
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\fastapi\routing.py", line 248, in serialize_response
+    raise ResponseValidationError(
+fastapi.exceptions.ResponseValidationError: 3 validation errors:
+  {'type': 'missing', 'loc': ('response', 'generated_slips', 0, 'stake'), 'msg': 'Field required', 'input': {'slip_id': 'FALLBACK_001', 'legs': [{'match_id': 'fallback', 'market': 'Match Result', 'selection': 'N/A', 'odds': 1.5, 'is_fallback': True}], 'total_odds': 1.5, 'confidence_score': 0.1, 'error': 'Could not generate any valid slip variations'}}
+  {'type': 'missing', 'loc': ('response', 'generated_slips', 0, 'possible_return'), 'msg': 'Field required', 'input': {'slip_id': 'FALLBACK_001', 'legs': [{'match_id': 'fallback', 'market': 'Match Result', 'selection': 'N/A', 'odds': 1.5, 'is_fallback': True}], 'total_odds': 1.5, 'confidence_score': 0.1, 'error': 'Could not generate any valid slip variations'}}
+  {'type': 'missing', 'loc': ('response', 'generated_slips', 0, 'risk_level'), 'msg': 'Field required', 'input': {'slip_id': 'FALLBACK_001', 'legs': [{'match_id': 'fallback', 'market': 'Match Result', 'selection': 'N/A', 'odds': 1.5, 'is_fallback': True}], 'total_odds': 1.5, 'confidence_score': 0.1, 'error': 'Could not generate any valid slip variations'}}
+
+2025-12-27 20:03:42,644 - engine_logger - INFO - app:189 - Request: POST /generate-slips
+2025-12-27 20:03:42,667 - engine_logger - INFO - app:203 - Response: 422 in 0.023s
+2025-12-27 20:03:44,027 - engine_logger - INFO - app:189 - Request: POST /generate-slips
+2025-12-27 20:03:44,054 - engine_logger - INFO - app:203 - Response: 422 in 0.010s
+2025-12-27 21:02:42,995 - engine_logger - INFO - app:189 - Request: POST /generate-slips
+2025-12-27 21:02:43,053 - engine_logger - INFO - app:203 - Response: 422 in 0.030s
+2025-12-27 21:02:44,466 - engine_logger - INFO - app:189 - Request: POST /generate-slips
+2025-12-27 21:02:44,497 - engine_logger - INFO - app:203 - Response: 422 in 0.009s
+2025-12-27 21:20:14,860 - engine_logger - INFO - app:189 - Request: POST /generate-slips
+2025-12-27 21:20:14,860 - engine_logger - INFO - app:224 - Starting slip generation for master_slip_id: MSL-20240515-001
+2025-12-27 21:20:14,908 - engine_logger - INFO - app:242 - Successfully generated 6 slips for master_slip_id: MSL-20240515-001
+2025-12-27 21:20:14,908 - engine_logger - INFO - app:203 - Response: 200 in 0.048s
+2025-12-28 02:01:02,306 - engine_logger - INFO - app:235 - Request: POST /generate-slips
+2025-12-28 02:01:02,513 - engine_logger - WARNING - app:155 - ID normalization middleware failed: name 'Dict' is not defined
+2025-12-28 02:01:02,534 - engine_logger - INFO - app:270 - Starting slip generation for master_slip_id: altslip_69508f5a781419.84532341
+2025-12-28 02:01:04,794 - engine_logger - INFO - app:288 - Successfully generated 1 slips for master_slip_id: altslip_69508f5a781419.84532341
+2025-12-28 02:01:04,810 - engine_logger - INFO - app:249 - Response: 200 in 2.492s
+2025-12-28 02:26:30,061 - engine_logger - INFO - app:236 - Request: POST /generate-slips
+2025-12-28 02:26:30,077 - engine_logger - INFO - app:271 - Starting slip generation for master_slip_id: test_123
+2025-12-28 02:26:30,109 - engine_logger - INFO - app:289 - Successfully generated 1 slips for master_slip_id: test_123
+2025-12-28 02:26:30,109 - engine_logger - INFO - app:250 - Response: 200 in 0.032s
+2025-12-28 02:39:55,297 - engine_logger - INFO - app:236 - Request: POST /generate-slips
+2025-12-28 02:39:55,322 - engine_logger - INFO - app:271 - Starting slip generation for master_slip_id: altslip_6950987722e918.69995976
+2025-12-28 02:39:56,135 - engine_logger - INFO - app:289 - Successfully generated 1 slips for master_slip_id: altslip_6950987722e918.69995976
+2025-12-28 02:39:56,146 - engine_logger - INFO - app:250 - Response: 200 in 0.838s
+2025-12-28 05:54:22,126 - engine_logger - INFO - app:236 - Request: POST /generate-slips
+2025-12-28 05:54:22,186 - engine_logger - INFO - app:271 - Starting slip generation for master_slip_id: 9
+2025-12-28 05:54:23,935 - engine_logger - INFO - app:289 - Successfully generated 1 slips for master_slip_id: 9
+2025-12-28 05:54:24,009 - engine_logger - INFO - app:250 - Response: 200 in 1.881s
+2025-12-28 16:33:21,843 - engine_logger - INFO - app:236 - Request: POST /generate-slips
+2025-12-28 16:33:21,998 - engine_logger - INFO - app:250 - Response: 422 in 0.131s
+2025-12-28 16:37:48,429 - engine_logger - INFO - app:236 - Request: POST /generate-slips
+2025-12-28 16:37:48,461 - engine_logger - INFO - app:271 - Starting slip generation for master_slip_id: MSL-20240515-001
+2025-12-28 16:37:48,568 - engine_logger - INFO - app:289 - Successfully generated 1 slips for master_slip_id: MSL-20240515-001
+2025-12-28 16:37:48,582 - engine_logger - INFO - app:250 - Response: 200 in 0.152s
+2025-12-28 17:05:28,059 - engine_logger - INFO - app:236 - Request: POST /generate-slips
+2025-12-28 17:05:28,245 - engine_logger - INFO - app:271 - Starting slip generation for master_slip_id: MSL-20240515-001
+2025-12-28 17:05:29,948 - engine_logger - INFO - app:289 - Successfully generated 6 slips for master_slip_id: MSL-20240515-001
+2025-12-28 17:05:29,960 - engine_logger - INFO - app:250 - Response: 200 in 1.878s
+2025-12-28 17:24:07,804 - engine_logger - INFO - app:236 - Request: POST /generate-slips
+2025-12-28 17:24:07,820 - engine_logger - INFO - app:271 - Starting slip generation for master_slip_id: MSL-20240515-001
+2025-12-28 17:24:08,743 - engine_logger - INFO - app:289 - Successfully generated 6 slips for master_slip_id: MSL-20240515-001
+2025-12-28 17:24:08,749 - engine_logger - INFO - app:250 - Response: 200 in 0.943s
+2025-12-28 18:26:34,912 - engine_logger - INFO - app:236 - Request: POST /generate-slips
+2025-12-28 18:26:34,915 - engine_logger - INFO - app:236 - Request: POST /generate-slips
+2025-12-28 18:26:34,925 - engine_logger - WARNING - app:156 - ID normalization middleware failed: cannot import name 'IDFlex' from 'game_engine.engine.slip_builder' (C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py)
+2025-12-28 18:26:34,931 - engine_logger - WARNING - app:156 - ID normalization middleware failed: cannot import name 'IDFlex' from 'game_engine.engine.slip_builder' (C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py)
+2025-12-28 18:26:34,938 - engine_logger - WARNING - app:156 - ID normalization middleware failed: cannot import name 'IDFlex' from 'game_engine.engine.slip_builder' (C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py)
+2025-12-28 18:26:34,940 - engine_logger - WARNING - app:156 - ID normalization middleware failed: cannot import name 'IDFlex' from 'game_engine.engine.slip_builder' (C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py)
+2025-12-28 18:26:34,955 - engine_logger - INFO - app:271 - Starting slip generation for master_slip_id: MSL-20240515-001
+2025-12-28 18:26:34,957 - engine_logger - ERROR - app:320 - Slip generation failed for master_slip_id MSL-20240515-001: local variable 'total_stake' referenced before assignment
+Traceback (most recent call last):
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py", line 493, in generate
+    total_stake = float(data.get('stake', 100.0))
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\pydantic\main.py", line 1026, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'MasterSlipData' object has no attribute 'get'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\app.py", line 286, in generate_slips
+    results = builder.generate(payload)
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py", line 563, in generate
+    "stake": round(total_stake / 5, 2),
+UnboundLocalError: local variable 'total_stake' referenced before assignment
+2025-12-28 18:26:34,975 - engine_logger - WARNING - app:202 - HTTP 500 at /generate-slips: Internal processing error for slip MSL-20240515-001
+2025-12-28 18:26:34,979 - engine_logger - INFO - app:271 - Starting slip generation for master_slip_id: MSL-20240515-001
+2025-12-28 18:26:34,981 - engine_logger - ERROR - app:320 - Slip generation failed for master_slip_id MSL-20240515-001: local variable 'total_stake' referenced before assignment
+Traceback (most recent call last):
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py", line 493, in generate
+    total_stake = float(data.get('stake', 100.0))
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\pydantic\main.py", line 1026, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'MasterSlipData' object has no attribute 'get'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\app.py", line 286, in generate_slips
+    results = builder.generate(payload)
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py", line 563, in generate
+    "stake": round(total_stake / 5, 2),
+UnboundLocalError: local variable 'total_stake' referenced before assignment
+2025-12-28 18:26:34,991 - engine_logger - WARNING - app:202 - HTTP 500 at /generate-slips: Internal processing error for slip MSL-20240515-001
+2025-12-28 18:26:35,005 - engine_logger - INFO - app:250 - Response: 500 in 0.092s
+2025-12-28 18:26:35,008 - engine_logger - INFO - app:250 - Response: 500 in 0.091s
+2025-12-28 18:34:04,985 - engine_logger - INFO - app:236 - Request: POST /generate-slips
+2025-12-28 18:34:04,995 - engine_logger - WARNING - app:156 - ID normalization middleware failed: cannot import name 'IDFlex' from 'game_engine.engine.slip_builder' (C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py)
+2025-12-28 18:34:05,031 - engine_logger - WARNING - app:156 - ID normalization middleware failed: cannot import name 'IDFlex' from 'game_engine.engine.slip_builder' (C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py)
+2025-12-28 18:34:05,053 - engine_logger - INFO - app:271 - Starting slip generation for master_slip_id: MSL-20240515-001
+2025-12-28 18:34:05,176 - engine_logger - ERROR - app:320 - Slip generation failed for master_slip_id MSL-20240515-001: local variable 'total_stake' referenced before assignment
+Traceback (most recent call last):
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py", line 493, in generate
+    total_stake = float(data.get('stake', 100.0))
+  File "C:\Users\Kobayashi\AppData\Local\Programs\Python\Python310\lib\site-packages\pydantic\main.py", line 1026, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'MasterSlipData' object has no attribute 'get'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\app.py", line 286, in generate_slips
+    results = builder.generate(payload)
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\engine\slip_builder.py", line 563, in generate
+    "stake": round(total_stake / 5, 2),
+UnboundLocalError: local variable 'total_stake' referenced before assignment
+2025-12-28 18:34:05,232 - engine_logger - WARNING - app:202 - HTTP 500 at /generate-slips: Internal processing error for slip MSL-20240515-001
+2025-12-28 18:34:05,301 - engine_logger - INFO - app:250 - Response: 500 in 0.313s
+2025-12-28 18:40:52,029 - engine_logger - INFO - app:236 - Request: POST /generate-slips
+2025-12-28 18:40:52,043 - engine_logger - WARNING - app:156 - ID normalization middleware failed: type object 'IDFlex' has no attribute 'ensure_string_ids'
+2025-12-28 18:40:52,048 - engine_logger - WARNING - app:156 - ID normalization middleware failed: type object 'IDFlex' has no attribute 'ensure_string_ids'
+2025-12-28 18:40:52,113 - engine_logger - INFO - app:271 - Starting slip generation for master_slip_id: MSL-20240515-001
+2025-12-28 18:40:52,313 - engine_logger - ERROR - app:320 - Slip generation failed for master_slip_id MSL-20240515-001: 'str' object has no attribute 'get'
+Traceback (most recent call last):
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\app.py", line 294, in generate_slips
+    "confidence_scores": [s.get('confidence_score', 0) for s in results]
+  File "C:\Users\Kobayashi\Desktop\freedomTrain\github\game_engine\app.py", line 294, in <listcomp>
+    "confidence_scores": [s.get('confidence_score', 0) for s in results]
+AttributeError: 'str' object has no attribute 'get'
+2025-12-28 18:40:52,396 - engine_logger - WARNING - app:202 - HTTP 500 at /generate-slips: Internal processing error for slip MSL-20240515-001
+2025-12-28 18:40:52,463 - engine_logger - INFO - app:250 - Response: 500 in 0.429s
+2025-12-29 17:04:24,470 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-29 17:05:41,655 - engine_logger - INFO - Shutting down engine services
+2025-12-29 17:59:16,986 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-29 18:03:22,883 - engine_logger - INFO - Shutting down engine services
+2025-12-30 00:56:43,789 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 00:56:49,114 - engine_logger - INFO - Shutting down engine services
+2025-12-30 00:57:01,446 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 01:17:28,577 - engine_logger - INFO - Shutting down engine services
+2025-12-30 01:17:47,472 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 01:21:13,935 - engine_logger - INFO - Shutting down engine services
+2025-12-30 01:21:23,721 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 01:22:17,038 - engine_logger - INFO - Shutting down engine services
+2025-12-30 01:22:36,537 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 02:12:07,064 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 02:24:09,410 - engine_logger - INFO - Shutting down engine services
+2025-12-30 02:24:14,892 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 02:24:45,559 - engine_logger - INFO - Shutting down engine services
+2025-12-30 02:24:52,075 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 02:39:29,504 - engine_logger - INFO - Shutting down engine services
+2025-12-30 02:39:35,650 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 02:49:07,092 - engine_logger - INFO - Shutting down engine services
+2025-12-30 02:53:42,638 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 03:06:02,644 - engine_logger - INFO - Shutting down engine services
+2025-12-30 03:06:09,718 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 03:37:52,553 - engine_logger - INFO - Shutting down engine services
+2025-12-30 03:38:35,260 - engine_logger - INFO - Analytical Engines Initialized and Ready
+2025-12-30 03:44:48,808 - engine_logger - INFO - Shutting down engine services
+2025-12-30 03:45:42,680 - engine_logger - INFO - Analytical Engines Initialized and Ready

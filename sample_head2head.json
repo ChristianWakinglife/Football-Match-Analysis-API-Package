@@ -1,0 +1,72 @@
+[
+   {
+      "date": "2025-04-13",
+      "home_team": "Newcastle",
+      "away_team": "Manchester Utd",
+      "score": "4-1",
+      "result": "H"
+   },
+   {
+      "date": "2024-12-30",
+      "home_team": "Manchester Utd",
+      "away_team": "Newcastle",
+      "score": "0-2",
+      "result": "A"
+   },
+   {
+      "date": "2024-05-15",
+      "home_team": "Manchester Utd",
+      "away_team": "Newcastle",
+      "score": "3-2",
+      "result": "H"
+   },
+   {
+      "date": "2023-12-02",
+      "home_team": "Newcastle",
+      "away_team": "Manchester Utd",
+      "score": "1-0",
+      "result": "H"
+   },
+   {
+      "date": "2023-11-01",
+      "home_team": "Manchester Utd",
+      "away_team": "Newcastle",
+      "score": "0-3",
+      "result": "A"
+   },
+   {
+      "date": "2023-04-02",
+      "home_team": "Newcastle",
+      "away_team": "Manchester Utd",
+      "score": "2-0",
+      "result": "H"
+   },
+   {
+      "date": "2023-02-26",
+      "home_team": "Manchester Utd",
+      "away_team": "Newcastle",
+      "score": "2-0",
+      "result": "H"
+   },
+   {
+      "date": "2022-10-16",
+      "home_team": "Manchester Utd",
+      "away_team": "Newcastle",
+      "score": "0-0",
+      "result": "D"
+   },
+   {
+      "date": "2022-12-27",
+      "home_team": "Newcastle",
+      "away_team": "Manchester Utd",
+      "score": "1-1",
+      "result": "D"
+   },
+   {
+      "date": "2021-09-11",
+      "home_team": "Manchester Utd",
+      "away_team": "Newcastle",
+      "score": "4-1",
+      "result": "H"
+   }
+]

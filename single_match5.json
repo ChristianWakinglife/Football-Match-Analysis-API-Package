@@ -1,0 +1,267 @@
+{
+  "home_team": "Bournemouth",
+  "away_team": "Brentford",
+  "league": "Premier League",
+  "match_date": "2026-01-01",
+  "match_time": "15:00",
+  "venue": "home",
+  "referee": "Anthony Taylor",
+  "weather": "Rain showers",
+  "status": "scheduled",
+  "home_score": null,
+  "away_score": null,
+  "notes": "",
+  "home_form": {
+    "raw_form": [
+      {
+        "opponent": "Ipswich Town",
+        "result": "2-1",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Southampton",
+        "result": "3-1",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Everton",
+        "result": "1-1",
+        "outcome": "D"
+      },
+      {
+        "opponent": "West Ham",
+        "result": "2-0",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Chelsea",
+        "result": "0-1",
+        "outcome": "L"
+      },
+      {
+        "opponent": "Fulham",
+        "result": "2-2",
+        "outcome": "D"
+      },
+      {
+        "opponent": "Brighton",
+        "result": "1-0",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Crystal Palace",
+        "result": "2-1",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Manchester City",
+        "result": "1-2",
+        "outcome": "L"
+      },
+      {
+        "opponent": "Arsenal",
+        "result": "0-0",
+        "outcome": "D"
+      }
+    ],
+    "matches_played": 10,
+    "wins": 5,
+    "draws": 3,
+    "losses": 2,
+    "goals_scored": 14,
+    "goals_conceded": 9,
+    "avg_goals_scored": 1.4,
+    "avg_goals_conceded": 0.9,
+    "clean_sheets": 3,
+    "failed_to_score": 1,
+    "form_string": "WWDWLDWWLD",
+    "form_rating": 7.4,
+    "form_momentum": 1
+  },
+  "away_form": {
+    "raw_form": [
+      {
+        "opponent": "Newcastle United",
+        "result": "2-2",
+        "outcome": "D"
+      },
+      {
+        "opponent": "Tottenham",
+        "result": "1-3",
+        "outcome": "L"
+      },
+      {
+        "opponent": "Liverpool",
+        "result": "1-2",
+        "outcome": "L"
+      },
+      {
+        "opponent": "Manchester United",
+        "result": "2-1",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Wolves",
+        "result": "1-1",
+        "outcome": "D"
+      },
+      {
+        "opponent": "Everton",
+        "result": "2-0",
+        "outcome": "W"
+      },
+      {
+        "opponent": "West Ham",
+        "result": "1-0",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Fulham",
+        "result": "2-2",
+        "outcome": "D"
+      },
+      {
+        "opponent": "Chelsea",
+        "result": "0-2",
+        "outcome": "L"
+      },
+      {
+        "opponent": "Brighton",
+        "result": "3-1",
+        "outcome": "W"
+      }
+    ],
+    "matches_played": 10,
+    "wins": 4,
+    "draws": 3,
+    "losses": 3,
+    "goals_scored": 15,
+    "goals_conceded": 14,
+    "avg_goals_scored": 1.5,
+    "avg_goals_conceded": 1.4,
+    "clean_sheets": 3,
+    "failed_to_score": 1,
+    "form_string": "DLLWDWWDWL",
+    "form_rating": 6.8,
+    "form_momentum": 0
+  },
+  "head_to_head_stats": {
+    "home_wins": 2,
+    "away_wins": 2,
+    "draws": 1,
+    "total_meetings": 5,
+    "last_meetings": [
+      {
+        "date": "2025-05-11",
+        "home_team": "Bournemouth",
+        "away_team": "Brentford",
+        "score": "1-1",
+        "result": "D"
+      },
+      {
+        "date": "2024-11-02",
+        "home_team": "Brentford",
+        "away_team": "Bournemouth",
+        "score": "3-2",
+        "result": "H"
+      },
+      {
+        "date": "2024-04-20",
+        "home_team": "Bournemouth",
+        "away_team": "Brentford",
+        "score": "2-1",
+        "result": "H"
+      },
+      {
+        "date": "2023-12-30",
+        "home_team": "Brentford",
+        "away_team": "Bournemouth",
+        "score": "1-2",
+        "result": "A"
+      },
+      {
+        "date": "2023-09-02",
+        "home_team": "Brentford",
+        "away_team": "Bournemouth",
+        "score": "2-2",
+        "result": "D"
+      }
+    ]
+  },
+  "markets": [
+    {
+      "name": "match_result",
+      "odds": 0,
+      "market_type": "match_result",
+      "outcomes": [
+        {
+          "outcome": "1",
+          "odds": 0
+        },
+        {
+          "outcome": "X",
+          "odds": 0
+        },
+        {
+          "outcome": "2",
+          "odds": 0
+        }
+      ]
+    },
+    {
+      "name": "correct_score",
+      "odds": 0,
+      "market_type": "correct_score",
+      "outcomes": [
+        {
+          "outcome": "win",
+          "odds": 0
+        }
+      ]
+    },
+    {
+      "name": "asian_handicap",
+      "odds": 0,
+      "market_type": "asian_handicap",
+      "outcomes": [
+        {
+          "outcome": "win",
+          "odds": 0
+        }
+      ]
+    },
+    {
+      "name": "both_teams_score",
+      "odds": 0,
+      "market_type": "both_teams_score",
+      "outcomes": [
+        {
+          "outcome": "win",
+          "odds": 0
+        }
+      ]
+    },
+    {
+      "name": "over/under",
+      "odds": 0,
+      "market_type": "over_under",
+      "outcomes": [
+        {
+          "outcome": "Over 2.5",
+          "odds": 0
+        }
+      ]
+    },
+    {
+      "name": "halftime",
+      "odds": 0,
+      "market_type": "halftime",
+      "outcomes": [
+        {
+          "outcome": "win",
+          "odds": 0
+        }
+      ]
+    }
+  ]
+}

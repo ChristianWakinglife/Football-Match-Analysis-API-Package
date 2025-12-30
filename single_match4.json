@@ -1,0 +1,267 @@
+{
+  "home_team": "Lazio",
+  "away_team": "Napoli",
+  "league": "Serie A",
+  "match_date": "2026-01-04",
+  "match_time": "11:30",
+  "venue": "home",
+  "referee": "Daniele Orsato",
+  "weather": "Partly cloudy",
+  "status": "scheduled",
+  "home_score": null,
+  "away_score": null,
+  "notes": "",
+  "home_form": {
+    "raw_form": [
+      {
+        "opponent": "Cremonese",
+        "result": "0-0",
+        "outcome": "D"
+      },
+      {
+        "opponent": "Parma",
+        "result": "1-0",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Udinese",
+        "result": "1-1",
+        "outcome": "D"
+      },
+      {
+        "opponent": "Bologna",
+        "result": "1-1",
+        "outcome": "D"
+      },
+      {
+        "opponent": "Lecce",
+        "result": "2-0",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Milan",
+        "result": "1-0",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Juventus",
+        "result": "1-1",
+        "outcome": "D"
+      },
+      {
+        "opponent": "Atalanta",
+        "result": "2-1",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Roma",
+        "result": "0-0",
+        "outcome": "D"
+      },
+      {
+        "opponent": "Fiorentina",
+        "result": "2-2",
+        "outcome": "D"
+      }
+    ],
+    "matches_played": 10,
+    "wins": 4,
+    "draws": 5,
+    "losses": 1,
+    "goals_scored": 11,
+    "goals_conceded": 6,
+    "avg_goals_scored": 1.1,
+    "avg_goals_conceded": 0.6,
+    "clean_sheets": 5,
+    "failed_to_score": 2,
+    "form_string": "DDWDWWDDDW",
+    "form_rating": 7.2,
+    "form_momentum": 1
+  },
+  "away_form": {
+    "raw_form": [
+      {
+        "opponent": "Cremonese",
+        "result": "2-0",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Bologna",
+        "result": "2-0",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Milan",
+        "result": "2-0",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Cagliari",
+        "result": "1-1",
+        "outcome": "D"
+      },
+      {
+        "opponent": "Juventus",
+        "result": "2-1",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Roma",
+        "result": "1-0",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Inter",
+        "result": "1-2",
+        "outcome": "L"
+      },
+      {
+        "opponent": "Atalanta",
+        "result": "3-1",
+        "outcome": "W"
+      },
+      {
+        "opponent": "Fiorentina",
+        "result": "2-2",
+        "outcome": "D"
+      },
+      {
+        "opponent": "Verona",
+        "result": "2-1",
+        "outcome": "W"
+      }
+    ],
+    "matches_played": 10,
+    "wins": 7,
+    "draws": 2,
+    "losses": 1,
+    "goals_scored": 18,
+    "goals_conceded": 8,
+    "avg_goals_scored": 1.8,
+    "avg_goals_conceded": 0.8,
+    "clean_sheets": 4,
+    "failed_to_score": 0,
+    "form_string": "WWWDWLWDWW",
+    "form_rating": 8.0,
+    "form_momentum": 2
+  },
+  "head_to_head_stats": {
+    "home_wins": 2,
+    "away_wins": 2,
+    "draws": 1,
+    "total_meetings": 5,
+    "last_meetings": [
+      {
+        "date": "2025-02-15",
+        "home_team": "Lazio",
+        "away_team": "Napoli",
+        "score": "2-2",
+        "result": "D"
+      },
+      {
+        "date": "2024-12-08",
+        "home_team": "Napoli",
+        "away_team": "Lazio",
+        "score": "0-1",
+        "result": "A"
+      },
+      {
+        "date": "2024-01-28",
+        "home_team": "Lazio",
+        "away_team": "Napoli",
+        "score": "0-0",
+        "result": "D"
+      },
+      {
+        "date": "2023-09-02",
+        "home_team": "Napoli",
+        "away_team": "Lazio",
+        "score": "1-2",
+        "result": "A"
+      },
+      {
+        "date": "2023-03-03",
+        "home_team": "Napoli",
+        "away_team": "Lazio",
+        "score": "0-1",
+        "result": "A"
+      }
+    ]
+  },
+  "markets": [
+    {
+      "name": "match_result",
+      "odds": 0,
+      "market_type": "match_result",
+      "outcomes": [
+        {
+          "outcome": "1",
+          "odds": 0
+        },
+        {
+          "outcome": "X",
+          "odds": 0
+        },
+        {
+          "outcome": "2",
+          "odds": 0
+        }
+      ]
+    },
+    {
+      "name": "correct_score",
+      "odds": 0,
+      "market_type": "correct_score",
+      "outcomes": [
+        {
+          "outcome": "win",
+          "odds": 0
+        }
+      ]
+    },
+    {
+      "name": "asian_handicap",
+      "odds": 0,
+      "market_type": "asian_handicap",
+      "outcomes": [
+        {
+          "outcome": "win",
+          "odds": 0
+        }
+      ]
+    },
+    {
+      "name": "both_teams_score",
+      "odds": 0,
+      "market_type": "both_teams_score",
+      "outcomes": [
+        {
+          "outcome": "win",
+          "odds": 0
+        }
+      ]
+    },
+    {
+      "name": "over/under",
+      "odds": 0,
+      "market_type": "over_under",
+      "outcomes": [
+        {
+          "outcome": "Over 2.5",
+          "odds": 0
+        }
+      ]
+    },
+    {
+      "name": "halftime",
+      "odds": 0,
+      "market_type": "halftime",
+      "outcomes": [
+        {
+          "outcome": "win",
+          "odds": 0
+        }
+      ]
+    }
+  ]
+}
