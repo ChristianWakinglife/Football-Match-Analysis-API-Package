@@ -193,11 +193,16 @@ class HedgingEngine:
                            hedge_type: str = 'opposite') -> Tuple[str, str, float]:
         """Safety-wrapped selection logic to ensure (Market, Selection, Odds) always returns"""
         try:
+            # SAFETY CHECK: Ensure we have markets to work with
+            all_pools = [match_data.selected_market] + match_data.alternative_markets
+            valid_pools = [m for m in all_pools if m.outcomes]
+            
+            if not valid_pools:
+                # Ultimate fallback
+                return ("Match Result", original_selection, 1.85)
+                
             if hedge_type == 'core':
                 return (match_data.selected_market.market_name, original_selection, match_data.original_odds)
-            
-            # Combine all available data for searching
-            all_pools = [match_data.selected_market] + match_data.alternative_markets
             
             if hedge_type == 'opposite':
                 for m in all_pools:
@@ -208,8 +213,11 @@ class HedgingEngine:
 
             elif hedge_type in ['adjacent', 'correlated']:
                 keywords = ['double', 'draw', 'over', 'under', 'btts', 'both']
-                for m in match_data.alternative_markets:
-                    if any(k in m.market_name.lower() for k in keywords):
+                # Check BOTH selected market AND alternative markets
+                for m in all_pools:
+                    # Also check market_type for correlation
+                    if any(k in m.market_name.lower() for k in keywords) or \
+                       any(k in m.market_type.lower() for k in ['draw', 'over', 'under', 'btts']):
                         if m.outcomes:
                             sel, odd = self.random.choice(list(m.outcomes.items()))
                             return (m.market_name, sel, odd)
@@ -269,7 +277,11 @@ class HedgingEngine:
                         elif choice == 1:
                             config.append(("opposite", "any", "any"))
                         else:
-                            config.append(("correlated", "any", "any"))
+                            # Use 'correlated' only if we have alternative markets, otherwise use 'opposite'
+                            if match.alternative_markets:
+                                config.append(("correlated", "any", "any"))
+                            else:
+                                config.append(("opposite", "any", "any"))
                     
                     elif strategy == "safe_return":
                         # Mostly core selections (80%) with some hedge
@@ -286,7 +298,7 @@ class HedgingEngine:
         # If we need more, fill with random strategies
         while len(final_portfolio) < num_slips:
             config = []
-            for _ in matches:
+            for match in matches:
                 # Random strategy for remaining slips
                 rand = self.random.random()
                 if rand < 0.33:
@@ -294,7 +306,11 @@ class HedgingEngine:
                 elif rand < 0.66:
                     config.append(("opposite", "any", "any"))
                 else:
-                    config.append(("correlated", "any", "any"))
+                    # Use 'correlated' only if we have alternative markets, otherwise use 'opposite'
+                    if match.alternative_markets:
+                        config.append(("correlated", "any", "any"))
+                    else:
+                        config.append(("opposite", "any", "any"))
             final_portfolio.append(config)
         
         return final_portfolio
@@ -346,6 +362,43 @@ class SlipVariationGenerator:
         except Exception as e:
             logger.error(f"Failed to generate slip variation: {e}")
             return None
+    
+    def _calculate_confidence(self, legs: List[Dict], v_type: str) -> float:
+        """Calculate confidence based on actual slip characteristics"""
+        try:
+            # Base confidence by variation type
+            base_conf = {
+                "core": 0.7,  # Original selections
+                "opposite": 0.3,  # Opposite selections (risky)
+                "correlated": 0.5,  # Related markets
+                "hedge": 0.6,  # Hedge strategies
+            }.get(v_type, 0.5)
+            
+            # Analyze actual slip content
+            avg_odds = np.mean([l.get('odds', 2.0) for l in legs]) if legs else 2.0
+            
+            # Odds-based adjustment: higher odds = lower confidence
+            if avg_odds < 1.8:
+                odds_factor = 0.15  # Low odds = higher confidence
+            elif avg_odds < 3.0:
+                odds_factor = 0.0  # Moderate odds = neutral
+            elif avg_odds < 5.0:
+                odds_factor = -0.15  # Higher odds = lower confidence
+            else:
+                odds_factor = -0.25  # Very high odds = much lower confidence
+            
+            # Market diversity factor
+            markets = [l.get('market', '') for l in legs]
+            unique_markets = len(set(markets))
+            diversity_factor = (unique_markets / len(legs)) * 0.1 if legs else 0
+            
+            # Final confidence (clamped between 0.1 and 0.95)
+            confidence = base_conf + odds_factor + diversity_factor
+            return float(np.clip(confidence, 0.1, 0.95))
+            
+        except Exception:
+            return 0.5  # Safe fallback
+
 class PortfolioOptimizer:
     """Safely distributes total_stake across the generated slips"""
     
@@ -369,43 +422,6 @@ class PortfolioOptimizer:
                 s['possible_return'] = round(eq * s['total_odds'], 2)
                 
         return slips
-
-def _calculate_confidence(self, legs: List[Dict], v_type: str) -> float:
-    """Calculate confidence based on actual slip characteristics"""
-    try:
-        # Base confidence by variation type
-        base_conf = {
-            "core": 0.7,  # Original selections
-            "opposite": 0.3,  # Opposite selections (risky)
-            "correlated": 0.5,  # Related markets
-            "hedge": 0.6,  # Hedge strategies
-        }.get(v_type, 0.5)
-        
-        # Analyze actual slip content
-        avg_odds = np.mean([l.get('odds', 2.0) for l in legs]) if legs else 2.0
-        
-        # Odds-based adjustment: higher odds = lower confidence
-        if avg_odds < 1.8:
-            odds_factor = 0.15  # Low odds = higher confidence
-        elif avg_odds < 3.0:
-            odds_factor = 0.0  # Moderate odds = neutral
-        elif avg_odds < 5.0:
-            odds_factor = -0.15  # Higher odds = lower confidence
-        else:
-            odds_factor = -0.25  # Very high odds = much lower confidence
-        
-        # Market diversity factor
-        markets = [l.get('market', '') for l in legs]
-        unique_markets = len(set(markets))
-        diversity_factor = (unique_markets / len(legs)) * 0.1 if legs else 0
-        
-        # Final confidence (clamped between 0.1 and 0.95)
-        confidence = base_conf + odds_factor + diversity_factor
-        return float(np.clip(confidence, 0.1, 0.95))
-        
-    except Exception:
-        return 0.5  # Safe fallback
-    
 
 class SlipBuilder:
     """The main orchestrator: Hardened for production-grade stability"""
@@ -499,6 +515,8 @@ class SlipBuilder:
             # 4. Generate Variations
             print("🔄  Generating slip variations...")
             slips = []
+            failed_slips = 0
+            
             for i, cfg in enumerate(configs):
                 s = self.slip_generator.generate_slip(matches, cfg)
                 if s: 
@@ -506,8 +524,23 @@ class SlipBuilder:
                     # Show progress every 10 slips
                     if (i + 1) % 10 == 0:
                         print(f"   ↳ Generated {i + 1}/{len(configs)} slips...")
-            
+                else:
+                    failed_slips += 1
+                    # DEBUG: Show why slips are failing
+                    if failed_slips <= 3:  # Limit debug output
+                        print(f"   ⚠️ Slip {i} failed with config: {cfg}")
+
+            if failed_slips > 0:
+                print(f"   ⚠️ Total failed slips: {failed_slips}/{len(configs)}")
+
             if not slips: 
+                # ADD MORE DEBUG INFO
+                print(f"💥 DEBUG: matches count: {len(matches)}")
+                if matches:
+                    print(f"💥 DEBUG: first match alt markets: {len(matches[0].alternative_markets)}")
+                    print(f"💥 DEBUG: first match selected market: {matches[0].selected_market}")
+                print(f"💥 DEBUG: configs count: {len(configs)}")
+                print(f"💥 DEBUG: first config: {configs[0] if configs else 'none'}")
                 raise ValueError("Generator failed to produce valid slips")
             
             print(f"✅  Successfully generated {len(slips)} slip variations")

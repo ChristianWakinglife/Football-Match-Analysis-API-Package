@@ -1,335 +1,225 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Container,
+  Grid,
+  Paper,
   Typography,
   Box,
-  Paper,
-  Grid,
   Chip,
   Button,
   Stack,
-  CircularProgress,
-  Alert,
-  ToggleButton,
-  ToggleButtonGroup,
+  Divider,
   TextField,
-  InputAdornment,
-  MenuItem,
   Select,
+  MenuItem,
   FormControl,
   InputLabel,
   IconButton,
-  Tooltip,
+  InputAdornment,
   Card,
   CardContent,
   LinearProgress,
-  Divider,
-  styled,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Pagination,
   alpha,
   useTheme,
-  Fade,
-  Zoom,
 } from "@mui/material";
 import {
-  ArrowBack,
-  Refresh,
-  TrendingUp,
-  FilterList,
   Search,
-  Download,
+  FilterList,
   Sort,
-  BarChart,
-  ViewList,
+  TrendingUp,
   AttachMoney,
   Warning,
   Sports,
-  Whatshot,
-  EmojiEvents,
-  Paid,
+  ArrowBack,
+  Refresh,
+  Visibility,
+  LocalFireDepartment,
   Security,
-  Insights,
+  TrendingDown,
+  Calculate,
+  BarChart,
+  ExpandMore,
+  ExpandLess,
 } from "@mui/icons-material";
-
-import ConfidenceChart from "../../components/matches/ConfidenceChart";
-import SlipCard from "../../components/matches/SlipCard";
-import SlipDetailModal from "../../components/matches/SlipDetailModal";
+import { useParams, useNavigate } from "react-router-dom";
 import slipApi from "../../services/api/slipApi";
+import { theme as customTheme } from "../../theme";
+import SlipDetailModal from "../../components/matches/SlipDetailModal";
 
-// Styled Components for Dark Theme
-const ScrollableSlipsContainer = styled(Box)(({ theme }) => ({
-  height: "calc(100vh - 420px)",
-  overflowY: "auto",
-  paddingRight: theme.spacing(1.5),
-
-  "&::-webkit-scrollbar": {
-    width: "10px",
-  },
-  "&::-webkit-scrollbar-track": {
-    background: alpha(theme.palette.grey[900], 0.3),
-    borderRadius: "10px",
-  },
-  "&::-webkit-scrollbar-thumb": {
-    background: `linear-gradient(180deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
-    borderRadius: "10px",
-    border: `2px solid ${alpha(theme.palette.background.default, 0.3)}`,
-    "&:hover": {
-      background: `linear-gradient(180deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.light} 100%)`,
-    },
-  },
-}));
-
-const StickySidebar = styled(Paper)(({ theme }) => ({
-  position: "sticky",
-  top: theme.spacing(3),
-  height: "calc(100vh - 420px)",
-  overflowY: "auto",
-  background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.8)} 0%, ${alpha(
-    theme.palette.background.default,
-    0.95
-  )} 100%)`,
-  backdropFilter: "blur(10px)",
-  border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-  boxShadow: `0 8px 32px ${alpha(theme.palette.common.black, 0.3)}`,
-
-  "&::-webkit-scrollbar": {
-    width: "8px",
-  },
-  "&::-webkit-scrollbar-track": {
-    background: alpha(theme.palette.grey[900], 0.2),
-    borderRadius: "4px",
-  },
-  "&::-webkit-scrollbar-thumb": {
-    background: alpha(theme.palette.secondary.main, 0.5),
-    borderRadius: "4px",
-    "&:hover": {
-      background: alpha(theme.palette.secondary.main, 0.7),
-    },
-  },
-}));
-
-const FilterSection = styled(Paper)(({ theme }) => ({
-  position: "sticky",
-  top: 0,
-  zIndex: 1100,
-  background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.95)} 0%, ${alpha(
-    theme.palette.background.default,
-    0.98
-  )} 100%)`,
-  backdropFilter: "blur(10px)",
-  border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-  boxShadow: `0 4px 20px ${alpha(theme.palette.common.black, 0.25)}`,
-}));
-
-const StatsCard = styled(Card)(({ theme }) => ({
-  background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.9)} 0%, ${alpha(
-    theme.palette.background.default,
-    0.95
-  )} 100%)`,
-  backdropFilter: "blur(10px)",
-  border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-  transition: "all 0.3s ease",
-  "&:hover": {
-    transform: "translateY(-4px)",
-    boxShadow: `0 12px 32px ${alpha(theme.palette.primary.main, 0.15)}`,
-    borderColor: alpha(theme.palette.primary.main, 0.3),
-  },
-}));
-
-const GradientButton = styled(Button)(({ theme }) => ({
-  background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
-  color: theme.palette.common.white,
-  fontWeight: 600,
-  textTransform: "none",
-  transition: "all 0.3s ease",
-  "&:hover": {
-    transform: "translateY(-2px)",
-    boxShadow: `0 8px 25px ${alpha(theme.palette.primary.main, 0.3)}`,
-  },
-}));
-
-const OutlinedButton = styled(Button)(({ theme }) => ({
-  border: `1px solid ${alpha(theme.palette.divider, 0.3)}`,
-  background: alpha(theme.palette.background.paper, 0.6),
-  transition: "all 0.3s ease",
-  "&:hover": {
-    background: alpha(theme.palette.background.paper, 0.9),
-    borderColor: theme.palette.primary.main,
-    transform: "translateY(-2px)",
-  },
-}));
-
-const RiskBadge = styled(Chip)(({ theme, risklevel }) => {
-  const colors = {
-    high: {
-      bg: alpha(theme.palette.error.main, 0.15),
-      text: theme.palette.error.light,
-      border: alpha(theme.palette.error.main, 0.3),
-    },
-    medium: {
-      bg: alpha(theme.palette.warning.main, 0.15),
-      text: theme.palette.warning.light,
-      border: alpha(theme.palette.warning.main, 0.3),
-    },
-    low: {
-      bg: alpha(theme.palette.success.main, 0.15),
-      text: theme.palette.success.light,
-      border: alpha(theme.palette.success.main, 0.3),
-    },
-  };
-
-  const color = colors[risklevel?.toLowerCase()] || colors.medium;
-
-  return {
-    background: color.bg,
-    color: color.text,
-    border: `1px solid ${color.border}`,
-    fontWeight: 600,
-    backdropFilter: "blur(5px)",
-  };
-});
+// Constants
+const PAGE_SIZE = 15;
+const RISK_COLORS = {
+  High: customTheme.colors.accent.error,
+  Medium: customTheme.colors.accent.warning,
+  Low: customTheme.colors.accent.success,
+};
 
 const GeneratedSlips = () => {
   const { masterSlipId } = useParams();
   const navigate = useNavigate();
-  const theme = useTheme();
-
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [slips, setSlips] = useState([]);
-  const [statistics, setStatistics] = useState(null);
-  const [selectedSlip, setSelectedSlip] = useState(null);
-  const [detailModalOpen, setDetailModalOpen] = useState(false);
-
-  // State for filters and sorting
-  const [viewMode, setViewMode] = useState("cards");
-  const [sortBy, setSortBy] = useState("confidence");
-  const [filterRisk, setFilterRisk] = useState("all");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [minConfidence, setMinConfidence] = useState(0);
-  const [masterSlipInfo, setMasterSlipInfo] = useState({
-    stake: 0,
-    total_slips: 0,
+  const [state, setState] = useState({
+    loading: true,
+    error: null,
+    masterSlip: null,
+    slips: [],
+    filteredSlips: [],
+    paginatedSlips: [],
+    stats: null,
+    // expandedSlipId: null,
   });
 
-  // Fetch slips data
-  const fetchSlips = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await slipApi.getGeneratedSlips(masterSlipId);
-      const fetchedData = response.data;
+  // ADD THIS: Modal state
+  const [modalState, setModalState] = useState({
+    open: false,
+    selectedSlip: null,
+  });
 
-      setMasterSlipInfo({
-        stake: fetchedData.master_slip?.stake || 0,
-        total_slips:
-          fetchedData.master_slip?.total_generated_slips ||
-          fetchedData.generated_slips?.length ||
-          0,
-      });
-
-      setSlips(fetchedData.generated_slips || []);
-
-      const stats = calculateStatistics(fetchedData.generated_slips || []);
-      setStatistics(stats);
-    } catch (err) {
-      setError("Failed to load generated slips. Please try again.");
-      console.error("Error fetching slips:", err);
-    } finally {
-      setLoading(false);
-    }
-  }, [masterSlipId]);
-
-  // Calculate statistics
-  const calculateStatistics = (slipsData) => {
-    if (!slipsData.length || !masterSlipInfo.total_slips) return null;
-
-    const totalSlips = slipsData.length;
-    const stakePerSlip = masterSlipInfo.stake / totalSlips;
-
-    const slipsWithCalculations = slipsData.map((slip) => ({
-      ...slip,
-      calculated_stake: stakePerSlip,
-      calculated_return: stakePerSlip * slip.total_odds,
-    }));
-
-    const avgConfidence =
-      slipsData.reduce((sum, slip) => sum + (slip.confidence_score || 0), 0) /
-      totalSlips;
-
-    const avgOdds =
-      slipsData.reduce((sum, slip) => sum + slip.total_odds, 0) / totalSlips;
-
-    const avgReturn =
-      slipsWithCalculations.reduce(
-        (sum, slip) => sum + slip.calculated_return,
-        0
-      ) / totalSlips;
-
-    const riskDistribution = slipsData.reduce((acc, slip) => {
-      const riskLevel = slip.risk_level || "Medium";
-      acc[riskLevel] = (acc[riskLevel] || 0) + 1;
-      return acc;
-    }, {});
-
-    return {
-      totalSlips,
-      avgConfidence: avgConfidence.toFixed(1),
-      avgOdds: avgOdds.toFixed(2),
-      avgReturn: avgReturn.toFixed(2),
-      riskDistribution,
-      highestConfidence: Math.max(
-        ...slipsData.map((s) => s.confidence_score || 0)
-      ).toFixed(1),
-      highestReturn: Math.max(
-        ...slipsWithCalculations.map((s) => s.calculated_return || 0)
-      ).toFixed(2),
-      stakePerSlip: stakePerSlip.toFixed(2),
-    };
+  // Handlers for the modal
+  const handleOpenModal = (slip) => {
+    setModalState({
+      open: true,
+      selectedSlip: slip,
+    });
   };
 
-  // Filter and sort slips
-  const filteredSlips = useMemo(() => {
-    let filtered = [...slips];
+  const handleCloseModal = () => {
+    setModalState({
+      open: false,
+      selectedSlip: null,
+    });
+  };
 
-    const stakePerSlip =
-      masterSlipInfo.total_slips > 0
-        ? masterSlipInfo.stake / masterSlipInfo.total_slips
-        : 0;
+  // UI State
+  const [filters, setFilters] = useState({
+    search: "",
+    riskLevel: "all",
+    minConfidence: 0,
+    maxOdds: 1000,
+  });
+  const [sortBy, setSortBy] = useState("confidence");
+  const [currentPage, setCurrentPage] = useState(1);
 
-    let filteredWithCalculations = filtered.map((slip) => ({
-      ...slip,
-      calculated_stake: stakePerSlip,
-      calculated_return: stakePerSlip * slip.total_odds,
-    }));
+  // Fetch data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setState((prev) => ({ ...prev, loading: true, error: null }));
+        const response = await slipApi.getGeneratedSlips(masterSlipId);
+        const { master_slip, generated_slips, summary } = response.data;
+
+        // Calculate correct financials
+        const totalSlips = generated_slips.length;
+
+        const processedSlips = generated_slips.map((slip) => ({
+          ...slip,
+          calculated_stake: slip.stake, // ✅ Use database stake
+          calculated_return: slip.stake * slip.total_odds, // ✅ Use actual stake
+          confidence_percentage: (slip.confidence_score * 100).toFixed(1),
+        }));
+
+        // Calculate total from individual slips (not master stake)
+        const totalCalculatedStake = processedSlips.reduce(
+          (sum, slip) => sum + slip.calculated_stake,
+          0
+        );
+
+        // Calculate statistics using actual slip data
+        const stats = {
+          totalSlips,
+          totalInvestment: totalCalculatedStake, // Sum of individual stakes
+          averageConfidence: summary.average_confidence * 100 || 0,
+          averageOdds:
+            processedSlips.reduce((sum, slip) => sum + slip.total_odds, 0) /
+            totalSlips,
+          averageStake: totalCalculatedStake / totalSlips, // Average of individual stakes
+          highestReturn: Math.max(
+            ...processedSlips.map((s) => s.calculated_return)
+          ),
+          highestConfidence: Math.max(
+            ...processedSlips.map((s) => s.confidence_score * 100)
+          ),
+          riskDistribution: summary.risk_distribution || {
+            High: 0,
+            Medium: 0,
+            Low: 0,
+          },
+        };
+
+        // Optional: Validate stake consistency
+        if (Math.abs(totalCalculatedStake - master_slip.stake) > 0.01) {
+          console.warn(
+            `Stake mismatch: Slips total ${totalCalculatedStake}, Master total ${master_slip.stake}`
+          );
+        }
+
+        setState({
+          loading: false,
+          error: null,
+          masterSlip: master_slip,
+          slips: processedSlips,
+          filteredSlips: processedSlips,
+          paginatedSlips: processedSlips.slice(0, PAGE_SIZE),
+          stats,
+          expandedSlipId: null,
+        });
+      } catch (error) {
+        setState((prev) => ({
+          ...prev,
+          loading: false,
+          error: "Failed to load generated slips. Please try again.",
+        }));
+        console.error("Error fetching slips:", error);
+      }
+    };
+
+    fetchData();
+  }, [masterSlipId]);
+
+  // Apply filters and sorting
+  useEffect(() => {
+    if (!state.slips.length) return;
+
+    let filtered = [...state.slips];
 
     // Apply search filter
-    if (searchTerm) {
-      filteredWithCalculations = filteredWithCalculations.filter(
+    if (filters.search) {
+      const searchLower = filters.search.toLowerCase();
+      filtered = filtered.filter(
         (slip) =>
-          slip.slip_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          slip.slip_id.toLowerCase().includes(searchLower) ||
           slip.legs.some(
             (leg) =>
-              leg.match_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-              leg.selection.toLowerCase().includes(searchTerm.toLowerCase())
+              leg.match_id.toLowerCase().includes(searchLower) ||
+              leg.selection.toLowerCase().includes(searchLower)
           )
       );
     }
 
     // Apply risk filter
-    if (filterRisk !== "all") {
-      filteredWithCalculations = filteredWithCalculations.filter((slip) =>
-        slip.risk_level.toLowerCase().includes(filterRisk.toLowerCase())
+    if (filters.riskLevel !== "all") {
+      filtered = filtered.filter(
+        (slip) =>
+          slip.risk_level.toLowerCase() === filters.riskLevel.toLowerCase()
       );
     }
 
     // Apply confidence filter
-    filteredWithCalculations = filteredWithCalculations.filter(
-      (slip) => slip.confidence_score >= minConfidence
+    filtered = filtered.filter(
+      (slip) => slip.confidence_score * 100 >= filters.minConfidence
     );
 
+    // Apply odds filter
+    filtered = filtered.filter((slip) => slip.total_odds <= filters.maxOdds);
+
     // Apply sorting
-    filteredWithCalculations.sort((a, b) => {
+    filtered.sort((a, b) => {
       switch (sortBy) {
         case "confidence":
           return b.confidence_score - a.confidence_score;
@@ -337,6 +227,8 @@ const GeneratedSlips = () => {
           return b.total_odds - a.total_odds;
         case "return":
           return b.calculated_return - a.calculated_return;
+        case "stake":
+          return b.calculated_stake - a.calculated_stake;
         case "risk":
           const riskOrder = { High: 3, Medium: 2, Low: 1 };
           return riskOrder[b.risk_level] - riskOrder[a.risk_level];
@@ -345,357 +237,388 @@ const GeneratedSlips = () => {
       }
     });
 
-    return filteredWithCalculations;
-  }, [slips, masterSlipInfo, searchTerm, filterRisk, minConfidence, sortBy]);
+    // Update pagination
+    const startIndex = (currentPage - 1) * PAGE_SIZE;
+    const paginated = filtered.slice(startIndex, startIndex + PAGE_SIZE);
 
-  // Handle slip deletion
-  const handleDeleteSlip = async (slipId) => {
+    setState((prev) => ({
+      ...prev,
+      filteredSlips: filtered,
+      paginatedSlips: paginated,
+    }));
+  }, [state.slips, filters, sortBy, currentPage]);
+
+  // Handlers
+  const handlePageChange = (event, page) => {
+    setCurrentPage(page);
+  };
+
+  const handleSearchChange = (event) => {
+    setFilters((prev) => ({ ...prev, search: event.target.value }));
+    setCurrentPage(1);
+  };
+
+  const handleRiskFilterChange = (event) => {
+    setFilters((prev) => ({ ...prev, riskLevel: event.target.value }));
+    setCurrentPage(1);
+  };
+
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
+  };
+
+  const handleRefresh = async () => {
+    // Re-fetch data
     try {
-      const newSlips = slips.filter((slip) => slip.slip_id !== slipId);
-      setSlips(newSlips);
-      const stats = calculateStatistics(newSlips);
-      setStatistics(stats);
-    } catch (err) {
-      setError("Failed to delete slip");
-      console.error("Error deleting slip:", err);
+      setState((prev) => ({ ...prev, loading: true }));
+      const response = await slipApi.getGeneratedSlips(masterSlipId);
+      const { master_slip, generated_slips } = response.data;
+
+      const totalSlips = generated_slips.length;
+      const stakePerSlip = master_slip.stake / totalSlips;
+
+      const processedSlips = generated_slips.map((slip) => ({
+        ...slip,
+        calculated_stake: stakePerSlip,
+        calculated_return: stakePerSlip * slip.total_odds,
+        confidence_percentage: (slip.confidence_score * 100).toFixed(1),
+      }));
+
+      setState((prev) => ({
+        ...prev,
+        loading: false,
+        masterSlip: master_slip,
+        slips: processedSlips,
+        filteredSlips: processedSlips,
+      }));
+    } catch (error) {
+      setState((prev) => ({
+        ...prev,
+        loading: false,
+        error: "Failed to refresh data",
+      }));
     }
   };
 
-  // Handle slip detail view
-  const handleViewDetail = (slipId) => {
-    const slip = slips.find((s) => s.slip_id === slipId);
-    setSelectedSlip(slip);
-    setDetailModalOpen(true);
+
+
+  // Format currency
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: state.masterSlip?.currency || "EUR",
+      minimumFractionDigits: 2,
+    }).format(amount);
   };
 
-  // Export slips to CSV
-  const handleExportCSV = async () => {
-    try {
-      alert("Export feature would download CSV file in production");
-    } catch (err) {
-      setError("Failed to export slips");
-      console.error("Error exporting slips:", err);
-    }
-  };
-
-  // Initial fetch
-  useEffect(() => {
-    fetchSlips();
-  }, [fetchSlips]);
-
-  if (loading) {
+  // Loading state
+  if (state.loading) {
     return (
-      <Container maxWidth="xl" sx={{ py: 4 }}>
+      <Container maxWidth="xl" sx={{ py: 8 }}>
         <Box
           display="flex"
           justifyContent="center"
           alignItems="center"
-          minHeight="70vh"
-          flexDirection="column"
-          gap={3}
+          minHeight="60vh"
         >
-          <CircularProgress
-            size={80}
-            thickness={4}
-            sx={{
-              color: theme.palette.primary.main,
-              filter: `drop-shadow(0 0 10px ${alpha(theme.palette.primary.main, 0.5)})`,
-            }}
-          />
-          <Typography
-            variant="h6"
-            color="text.secondary"
-            sx={{
-              animation: "pulse 2s infinite",
-              "@keyframes pulse": {
-                "0%, 100%": { opacity: 0.7 },
-                "50%": { opacity: 1 },
-              },
-            }}
-          >
-            Loading your betting slips...
+          <Typography variant="h6" color="text.secondary">
+            Loading slips data...
           </Typography>
         </Box>
       </Container>
     );
   }
 
+  // Error state
+  if (state.error) {
+    return (
+      <Container maxWidth="xl" sx={{ py: 8 }}>
+        <Paper sx={{ p: 4, textAlign: "center" }}>
+          <Typography variant="h6" color="error" gutterBottom>
+            {state.error}
+          </Typography>
+          <Button variant="contained" onClick={handleRefresh}>
+            Retry
+          </Button>
+        </Paper>
+      </Container>
+    );
+  }
+
+  // No data state
+  if (!state.slips.length) {
+    return (
+      <Container maxWidth="xl" sx={{ py: 8 }}>
+        <Paper sx={{ p: 4, textAlign: "center" }}>
+          <Typography variant="h6" gutterBottom>
+            No generated slips found
+          </Typography>
+          <Button variant="outlined" onClick={() => navigate(-1)}>
+            Go Back
+          </Button>
+        </Paper>
+      </Container>
+    );
+  }
+
   return (
     <Container maxWidth="xl" sx={{ py: 3 }}>
-      {/* Header with Gradient */}
-      <Fade in={!loading} timeout={800}>
-        <Box mb={4}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            mb={4}
-            sx={{
-              background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.8)} 0%, ${alpha(
-                theme.palette.background.default,
-                0.95
-              )} 100%)`,
-              padding: 3,
-              borderRadius: 4,
-              border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            <Box>
-              <Typography
-                variant="h3"
-                component="h1"
-                gutterBottom
-                fontWeight={800}
-                sx={{
-                  background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Generated Slips
-              </Typography>
-              <Box display="flex" alignItems="center" gap={2} flexWrap="wrap">
-                <Typography variant="subtitle1" color="text.secondary">
-                  Master Slip: <strong>#{masterSlipId}</strong>
-                </Typography>
-                <Chip
-                  icon={<Whatshot />}
-                  label={`${slips.length} slips`}
-                  size="small"
-                  sx={{
-                    background: alpha(theme.palette.primary.main, 0.1),
-                    color: theme.palette.primary.light,
-                    fontWeight: 600,
-                  }}
-                />
-                <Chip
-                  icon={<Paid />}
-                  label={`€${masterSlipInfo.stake.toFixed(2)} total stake`}
-                  size="small"
-                  sx={{
-                    background: alpha(theme.palette.success.main, 0.1),
-                    color: theme.palette.success.light,
-                    fontWeight: 600,
-                  }}
-                />
-              </Box>
-            </Box>
-            <Stack direction="row" spacing={2}>
-              <OutlinedButton
-                startIcon={<ArrowBack />}
-                onClick={() => navigate(-1)}
-                sx={{ borderRadius: 3 }}
-              >
-                Back
-              </OutlinedButton>
-              <OutlinedButton
-                startIcon={<Refresh />}
-                onClick={fetchSlips}
-                sx={{ borderRadius: 3 }}
-              >
-                Refresh
-              </OutlinedButton>
-              <GradientButton
-                startIcon={<Download />}
-                onClick={handleExportCSV}
-                sx={{ borderRadius: 3 }}
-              >
-                Export CSV
-              </GradientButton>
-            </Stack>
-          </Box>
-
-          {error && (
-            <Alert
-              severity="error"
+      {/* Header */}
+      <Paper
+        sx={{
+          p: 3,
+          mb: 3,
+          background: `linear-gradient(135deg, ${alpha(
+            customTheme.colors.surface.card,
+            0.9
+          )} 0%, ${alpha(customTheme.colors.background.primary, 0.95)} 100%)`,
+          border: `1px solid ${alpha(customTheme.colors.border.light, 0.1)}`,
+          borderRadius: 2,
+        }}
+      >
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={2}
+        >
+          <Box>
+            <Typography
+              variant="h4"
+              fontWeight={700}
               sx={{
-                mb: 3,
-                borderRadius: 3,
-                background: alpha(theme.palette.error.main, 0.1),
-                border: `1px solid ${alpha(theme.palette.error.main, 0.2)}`,
-                color: theme.palette.error.light,
+                background: `linear-gradient(135deg, ${customTheme.colors.accent.primary} 0%, ${customTheme.colors.accent.secondary} 100%)`,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                mb: 1,
               }}
             >
-              {error}
-            </Alert>
-          )}
+              Generated Slips Analysis
+            </Typography>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Chip
+                label={`Master: #${masterSlipId}`}
+                size="small"
+                sx={{
+                  background: alpha(customTheme.colors.accent.primary, 0.1),
+                  color: customTheme.colors.accent.primary,
+                }}
+              />
+              <Typography variant="body2" color="text.secondary">
+                {state.slips.length} slips generated
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Total stake: {formatCurrency(state.masterSlip?.stake || 0)}
+              </Typography>
+            </Stack>
+          </Box>
+          <Stack direction="row" spacing={1}>
+            <Button
+              variant="outlined"
+              startIcon={<ArrowBack />}
+              onClick={() => navigate(-1)}
+              sx={{
+                borderColor: alpha(customTheme.colors.border.light, 0.3),
+              }}
+            >
+              Back
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<Refresh />}
+              onClick={handleRefresh}
+              sx={{
+                background: `linear-gradient(135deg, ${customTheme.colors.accent.primary} 0%, ${customTheme.colors.accent.primaryHover} 100%)`,
+              }}
+            >
+              Refresh
+            </Button>
+          </Stack>
+        </Stack>
+      </Paper>
 
-          {/* Statistics Cards - Grid with Hover Effects */}
-          {statistics && (
-            <Zoom in={!loading} timeout={1000}>
-              <Grid container spacing={3} mb={4}>
-                {[
-                  {
-                    label: "Total Slips",
-                    value: statistics.totalSlips,
-                    icon: <ViewList />,
-                    color: "primary",
-                    gradient: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
-                  },
-                  {
-                    label: "Avg Confidence",
-                    value: `${statistics.avgConfidence}%`,
-                    icon: <TrendingUp />,
-                    color: "success",
-                    gradient: `linear-gradient(135deg, ${theme.palette.success.main} 0%, ${theme.palette.success.dark} 100%)`,
-                  },
-                  {
-                    label: "Avg Return",
-                    value: `€${statistics.avgReturn}`,
-                    icon: <AttachMoney />,
-                    color: "warning",
-                    gradient: `linear-gradient(135deg, ${theme.palette.warning.main} 0%, ${theme.palette.warning.dark} 100%)`,
-                  },
-                  {
-                    label: "Highest Confidence",
-                    value: `${statistics.highestConfidence}%`,
-                    icon: <EmojiEvents />,
-                    color: "info",
-                    gradient: `linear-gradient(135deg, ${theme.palette.info.main} 0%, ${theme.palette.info.dark} 100%)`,
-                  },
-                  {
-                    label: "Stake per Slip",
-                    value: `€${statistics.stakePerSlip}`,
-                    icon: <Security />,
-                    color: "secondary",
-                    gradient: `linear-gradient(135deg, ${theme.palette.secondary.main} 0%, ${theme.palette.secondary.dark} 100%)`,
-                  },
-                ].map((stat, index) => (
-                  <Grid item xs={12} sm={6} md={2.4} key={index}>
-                    <StatsCard>
-                      <CardContent>
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                          gap={2}
-                          mb={1.5}
-                        >
-                          <Box
-                            sx={{
-                              background: stat.gradient,
-                              borderRadius: 2,
-                              p: 1.5,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
-                            {React.cloneElement(stat.icon, {
-                              sx: { fontSize: 20, color: "white" },
-                            })}
-                          </Box>
-                          <Typography
-                            variant="subtitle2"
-                            color="text.secondary"
-                            sx={{ opacity: 0.8 }}
-                          >
-                            {stat.label}
-                          </Typography>
-                        </Box>
-                        <Typography
-                          variant="h4"
-                          sx={{
-                            fontWeight: 800,
-                            background: stat.gradient,
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            backgroundClip: "text",
-                          }}
-                        >
-                          {stat.value}
-                        </Typography>
-                      </CardContent>
-                    </StatsCard>
-                  </Grid>
-                ))}
-              </Grid>
-            </Zoom>
-          )}
-        </Box>
-      </Fade>
+      {/* Statistics Dashboard */}
+      {state.stats && (
+        <Grid container spacing={2} sx={{ mb: 3 }}>
+          <Grid item xs={12} sm={6} md={2.4}>
+            <Card
+              sx={{
+                height: "100%",
+                background: alpha(customTheme.colors.surface.card, 0.8),
+                border: `1px solid ${alpha(customTheme.colors.border.light, 0.1)}`,
+              }}
+            >
+              <CardContent>
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  Total Slips
+                </Typography>
+                <Typography variant="h4" fontWeight={700}>
+                  {state.stats.totalSlips}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2.4}>
+            <Card
+              sx={{
+                height: "100%",
+                background: alpha(customTheme.colors.surface.card, 0.8),
+                border: `1px solid ${alpha(customTheme.colors.border.light, 0.1)}`,
+              }}
+            >
+              <CardContent>
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  Avg Confidence
+                </Typography>
+                <Typography
+                  variant="h4"
+                  fontWeight={700}
+                  color={customTheme.colors.accent.success}
+                >
+                  {state.stats.averageConfidence.toFixed(1)}%
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2.4}>
+            <Card
+              sx={{
+                height: "100%",
+                background: alpha(customTheme.colors.surface.card, 0.8),
+                border: `1px solid ${alpha(customTheme.colors.border.light, 0.1)}`,
+              }}
+            >
+              <CardContent>
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  Avg Odds
+                </Typography>
+                <Typography variant="h4" fontWeight={700}>
+                  {state.stats.averageOdds.toFixed(2)}×
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2.4}>
+            <Card
+              sx={{
+                height: "100%",
+                background: alpha(customTheme.colors.surface.card, 0.8),
+                border: `1px solid ${alpha(customTheme.colors.border.light, 0.1)}`,
+              }}
+            >
+              <CardContent>
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  Max Return
+                </Typography>
+                <Typography
+                  variant="h4"
+                  fontWeight={700}
+                  color={customTheme.colors.accent.success}
+                >
+                  {formatCurrency(state.stats.highestReturn)}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2.4}>
+            <Card
+              sx={{
+                height: "100%",
+                background: alpha(customTheme.colors.surface.card, 0.8),
+                border: `1px solid ${alpha(customTheme.colors.border.light, 0.1)}`,
+              }}
+            >
+              <CardContent>
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  Avg Stake/Slip
+                </Typography>
+                <Typography variant="h4" fontWeight={700}>
+                  {formatCurrency(state.stats.averageStake || 0)}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      )}
 
-      {/* Filters and Controls - Glassmorphism */}
-      <FilterSection sx={{ p: 3, mb: 3, borderRadius: 4 }}>
+      {/* Filters & Controls */}
+      <Paper
+        sx={{
+          p: 2,
+          mb: 3,
+          background: alpha(customTheme.colors.surface.card, 0.9),
+          border: `1px solid ${alpha(customTheme.colors.border.light, 0.1)}`,
+          borderRadius: 2,
+        }}
+      >
         <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={4}>
             <TextField
               fullWidth
               size="small"
-              placeholder="Search slips, matches, or selections..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search slips or matches..."
+              value={filters.search}
+              onChange={handleSearchChange}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Search
-                      sx={{ color: alpha(theme.palette.common.white, 0.6) }}
-                    />
+                    <Search />
                   </InputAdornment>
                 ),
                 sx: {
-                  borderRadius: 3,
-                  background: alpha(theme.palette.background.paper, 0.6),
-                  "&:hover": {
-                    background: alpha(theme.palette.background.paper, 0.8),
-                  },
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: alpha(theme.palette.divider, 0.2),
-                  },
+                  background: alpha(customTheme.colors.background.primary, 0.7),
                 },
               }}
             />
           </Grid>
           <Grid item xs={12} md={2}>
             <FormControl fullWidth size="small">
-              <InputLabel
-                sx={{ color: alpha(theme.palette.common.white, 0.7) }}
-              >
-                Sort By
-              </InputLabel>
+              <InputLabel>Risk Level</InputLabel>
               <Select
-                value={sortBy}
-                label="Sort By"
-                onChange={(e) => setSortBy(e.target.value)}
-                sx={{
-                  borderRadius: 3,
-                  background: alpha(theme.palette.background.paper, 0.6),
-                  "&:hover": {
-                    background: alpha(theme.palette.background.paper, 0.8),
-                  },
-                }}
+                value={filters.riskLevel}
+                label="Risk Level"
+                onChange={handleRiskFilterChange}
               >
-                <MenuItem value="confidence">Confidence</MenuItem>
-                <MenuItem value="odds">Total Odds</MenuItem>
-                <MenuItem value="return">Potential Return</MenuItem>
-                <MenuItem value="risk">Risk Level</MenuItem>
+                <MenuItem value="all">All Risks</MenuItem>
+                <MenuItem value="high">High Risk</MenuItem>
+                <MenuItem value="medium">Medium Risk</MenuItem>
+                <MenuItem value="low">Low Risk</MenuItem>
               </Select>
             </FormControl>
           </Grid>
           <Grid item xs={12} md={2}>
             <FormControl fullWidth size="small">
-              <InputLabel
-                sx={{ color: alpha(theme.palette.common.white, 0.7) }}
-              >
-                Risk Level
-              </InputLabel>
+              <InputLabel>Sort By</InputLabel>
               <Select
-                value={filterRisk}
-                label="Risk Level"
-                onChange={(e) => setFilterRisk(e.target.value)}
-                sx={{
-                  borderRadius: 3,
-                  background: alpha(theme.palette.background.paper, 0.6),
-                  "&:hover": {
-                    background: alpha(theme.palette.background.paper, 0.8),
-                  },
-                }}
+                value={sortBy}
+                label="Sort By"
+                onChange={handleSortChange}
               >
-                <MenuItem value="all">All Risks</MenuItem>
-                <MenuItem value="low">Low Risk</MenuItem>
-                <MenuItem value="medium">Medium Risk</MenuItem>
-                <MenuItem value="high">High Risk</MenuItem>
+                <MenuItem value="confidence">Confidence</MenuItem>
+                <MenuItem value="odds">Total Odds</MenuItem>
+                <MenuItem value="return">Potential Return</MenuItem>
+                <MenuItem value="stake">Stake Amount</MenuItem>
+                <MenuItem value="risk">Risk Level</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -704,379 +627,252 @@ const GeneratedSlips = () => {
               fullWidth
               size="small"
               type="number"
-              label="Min Confidence"
-              value={minConfidence}
-              onChange={(e) => setMinConfidence(Number(e.target.value))}
+              label="Min Confidence %"
+              value={filters.minConfidence}
+              onChange={(e) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  minConfidence: Math.max(
+                    0,
+                    Math.min(100, Number(e.target.value))
+                  ),
+                }))
+              }
               InputProps={{
                 endAdornment: <InputAdornment position="end">%</InputAdornment>,
-                sx: {
-                  borderRadius: 3,
-                  background: alpha(theme.palette.background.paper, 0.6),
-                  "&:hover": {
-                    background: alpha(theme.palette.background.paper, 0.8),
-                  },
-                },
               }}
             />
           </Grid>
-          <Grid item xs={12} md={3}>
-            <ToggleButtonGroup
-              exclusive
-              value={viewMode}
-              onChange={(_, value) => value && setViewMode(value)}
-              size="small"
+          <Grid item xs={12} md={2}>
+            <TextField
               fullWidth
-              sx={{
-                "& .MuiToggleButton-root": {
-                  borderRadius: 2,
-                  background: alpha(theme.palette.background.paper, 0.6),
-                  borderColor: alpha(theme.palette.divider, 0.2),
-                  color: alpha(theme.palette.common.white, 0.7),
-                  "&.Mui-selected": {
-                    background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.2)} 0%, ${alpha(
-                      theme.palette.primary.main,
-                      0.4
-                    )} 100%)`,
-                    color: theme.palette.primary.light,
-                    borderColor: alpha(theme.palette.primary.main, 0.3),
-                  },
-                },
-              }}
-            >
-              <ToggleButton value="cards">
-                <ViewList sx={{ mr: 1 }} />
-                Cards View
-              </ToggleButton>
-              <ToggleButton value="chart">
-                <BarChart sx={{ mr: 1 }} />
-                Analytics
-              </ToggleButton>
-            </ToggleButtonGroup>
+              size="small"
+              type="number"
+              label="Max Odds"
+              value={filters.maxOdds}
+              onChange={(e) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  maxOdds: Math.max(1, Number(e.target.value)),
+                }))
+              }
+            />
           </Grid>
         </Grid>
-      </FilterSection>
+      </Paper>
 
       {/* Results Summary */}
       <Box
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        mb={3}
+        mb={2}
       >
-        <Box display="flex" alignItems="center" gap={2}>
-          <Typography variant="h6" fontWeight={600}>
-            Showing {filteredSlips.length} of {slips.length} slips
-          </Typography>
-          {filteredSlips.length > 0 && (
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ opacity: 0.7 }}
-            >
-              Sorted by {sortBy === "return" ? "potential return" : sortBy}
-            </Typography>
-          )}
-        </Box>
-        {filterRisk !== "all" && (
-          <RiskBadge
-            label={`${filterRisk.toUpperCase()} RISK`}
-            onDelete={() => setFilterRisk("all")}
-            risklevel={filterRisk}
-            icon={<Warning />}
-          />
-        )}
+        <Typography variant="subtitle1">
+          Showing {state.paginatedSlips.length} of {state.filteredSlips.length}{" "}
+          slips
+          {filters.search && ` for "${filters.search}"`}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Page {currentPage} of{" "}
+          {Math.ceil(state.filteredSlips.length / PAGE_SIZE)}
+        </Typography>
       </Box>
 
-      {/* Content Area */}
-      {viewMode === "chart" ? (
-        <Paper
-          sx={{
-            p: 4,
-            mb: 3,
-            height: 500,
-            borderRadius: 4,
-            background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.8)} 0%, ${alpha(
-              theme.palette.background.default,
-              0.95
-            )} 100%)`,
-            border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-          }}
-        >
-          <ConfidenceChart slips={filteredSlips} />
-        </Paper>
-      ) : (
-        <Grid container spacing={3}>
-          {/* Main Slips List */}
-          <Grid item xs={12} lg={8}>
-            {filteredSlips.length === 0 ? (
-              <Paper
-                sx={{
-                  p: 6,
-                  textAlign: "center",
-                  borderRadius: 4,
-                  background: `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.8)} 0%, ${alpha(
-                    theme.palette.background.default,
-                    0.95
-                  )} 100%)`,
-                  border: `1px dashed ${alpha(theme.palette.divider, 0.3)}`,
-                }}
-              >
-                <Insights sx={{ fontSize: 60, mb: 2, opacity: 0.3 }} />
-                <Typography variant="h5" color="text.secondary" gutterBottom>
-                  No slips found
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ opacity: 0.7 }}
+      {/* Slips Grid */}
+      <Grid container spacing={2}>
+        {state.paginatedSlips.map((slip) => (
+          <Grid item xs={12} key={slip.slip_id}>
+            <Card
+              sx={{
+                background: alpha(customTheme.colors.surface.card, 0.8),
+                border: `1px solid ${alpha(customTheme.colors.border.light, 0.1)}`,
+                "&:hover": {
+                  borderColor: alpha(customTheme.colors.accent.primary, 0.3),
+                },
+              }}
+            >
+              <CardContent>
+                {/* Slip Header */}
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  mb={2}
                 >
-                  Try adjusting your filters or search terms
-                </Typography>
-              </Paper>
-            ) : (
-              <ScrollableSlipsContainer>
-                <Stack spacing={2.5}>
-                  {filteredSlips.map((slip, index) => (
-                    <SlipCard
-                      key={slip.slip_id}
-                      slip={slip}
-                      onDelete={handleDeleteSlip}
-                      onViewDetail={handleViewDetail}
-                      index={index}
+                  <Box>
+                    <Typography variant="h6" fontWeight={600}>
+                      {slip.slip_id}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {new Date(slip.created_at).toLocaleDateString()} •{" "}
+                      {slip.legs_count} legs
+                    </Typography>
+                  </Box>
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <Chip
+                      label={slip.risk_level}
+                      size="small"
+                      sx={{
+                        background: alpha(
+                          RISK_COLORS[slip.risk_level] ||
+                            customTheme.colors.accent.warning,
+                          0.15
+                        ),
+                        color:
+                          RISK_COLORS[slip.risk_level] ||
+                          customTheme.colors.accent.warning,
+                        fontWeight: 600,
+                      }}
                     />
-                  ))}
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={() => handleOpenModal(slip)}
+                      startIcon={<Visibility />}
+                      sx={{
+                        borderColor: alpha(customTheme.colors.border.light, 0.3),
+                        color: customTheme.colors.text.secondary,
+                        '&:hover': {
+                          borderColor: customTheme.colors.accent.primary,
+                          color: customTheme.colors.accent.primary,
+                        },
+                      }}
+                    >
+                      Details
+                    </Button>
+                  </Stack>
                 </Stack>
-              </ScrollableSlipsContainer>
-            )}
+
+                {/* Key Metrics */}
+                <Grid container spacing={2} mb={2}>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <Box>
+                      <Typography variant="caption" color="text.secondary">
+                        Confidence
+                      </Typography>
+                      <Box display="flex" alignItems="center" gap={1}>
+                        <LinearProgress
+                          variant="determinate"
+                          value={slip.confidence_score * 100}
+                          sx={{
+                            flex: 1,
+                            height: 6,
+                            borderRadius: 1,
+                            backgroundColor: alpha(
+                              customTheme.colors.background.tertiary,
+                              0.5
+                            ),
+                            "& .MuiLinearProgress-bar": {
+                              backgroundColor:
+                                slip.confidence_score >= 0.7
+                                  ? customTheme.colors.accent.success
+                                  : slip.confidence_score >= 0.4
+                                    ? customTheme.colors.accent.warning
+                                    : customTheme.colors.accent.error,
+                            },
+                          }}
+                        />
+                        <Typography variant="body2" fontWeight={600}>
+                          {slip.confidence_percentage}%
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <Box>
+                      <Typography variant="caption" color="text.secondary">
+                        Stake
+                      </Typography>
+                      <Typography variant="body1" fontWeight={600}>
+                        {formatCurrency(slip.calculated_stake)}
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <Box>
+                      <Typography variant="caption" color="text.secondary">
+                        Total Odds
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        fontWeight={600}
+                        color={customTheme.colors.accent.primary}
+                      >
+                        {slip.total_odds.toFixed(2)}×
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <Box>
+                      <Typography variant="caption" color="text.secondary">
+                        Potential Return
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        fontWeight={600}
+                        color={customTheme.colors.accent.success}
+                      >
+                        {formatCurrency(slip.calculated_return)}
+                      </Typography>
+                    </Box>
+                  </Grid>
+                </Grid>
+
+      
+              </CardContent>
+            </Card>
           </Grid>
+        ))}
+      </Grid>
 
-          {/* Sidebar with Analytics */}
-          <Grid item xs={12} lg={4}>
-            <StickySidebar sx={{ p: 3, borderRadius: 4 }}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                fontWeight={700}
-                sx={{ mb: 3 }}
-              >
-                <Box component="span" sx={{ opacity: 0.8 }}>
-                  📊
-                </Box>{" "}
-                Risk Analytics
-              </Typography>
-
-              {statistics?.riskDistribution && (
-                <Stack spacing={3} mb={4}>
-                  {Object.entries(statistics.riskDistribution).map(
-                    ([risk, count]) => {
-                      const percentageNum =
-                        (count / statistics.totalSlips) * 100;
-                      const colors = {
-                        High: theme.palette.error.main,
-                        Medium: theme.palette.warning.main,
-                        Low: theme.palette.success.main,
-                      };
-
-                      return (
-                        <Box key={risk}>
-                          <Box
-                            display="flex"
-                            justifyContent="space-between"
-                            alignItems="center"
-                            mb={1}
-                          >
-                            <Box display="flex" alignItems="center" gap={1}>
-                              <Box
-                                sx={{
-                                  width: 12,
-                                  height: 12,
-                                  borderRadius: "50%",
-                                  background:
-                                    colors[risk] || theme.palette.grey[500],
-                                  boxShadow: `0 0 10px ${alpha(colors[risk] || theme.palette.grey[500], 0.3)}`,
-                                }}
-                              />
-                              <Typography variant="body2" fontWeight={600}>
-                                {risk} Risk
-                              </Typography>
-                            </Box>
-                            <Typography variant="body2" fontWeight={700}>
-                              {count} ({percentageNum.toFixed(1)}%)
-                            </Typography>
-                          </Box>
-                          <LinearProgress
-                            variant="determinate"
-                            value={percentageNum}
-                            sx={{
-                              height: 10,
-                              borderRadius: 5,
-                              background: alpha(theme.palette.grey[800], 0.3),
-                              "& .MuiLinearProgress-bar": {
-                                background: `linear-gradient(90deg, ${alpha(colors[risk], 0.5)} 0%, ${colors[risk]} 100%)`,
-                                borderRadius: 5,
-                                boxShadow: `0 0 8px ${alpha(colors[risk], 0.3)}`,
-                              },
-                            }}
-                          />
-                        </Box>
-                      );
-                    }
-                  )}
-                </Stack>
-              )}
-
-              <Divider
-                sx={{ my: 3, borderColor: alpha(theme.palette.divider, 0.1) }}
-              />
-
-              <Typography
-                variant="h6"
-                gutterBottom
-                fontWeight={700}
-                sx={{ mb: 3 }}
-              >
-                <Box component="span" sx={{ opacity: 0.8 }}>
-                  ⚡
-                </Box>{" "}
-                Quick Actions
-              </Typography>
-              <Stack spacing={2} mb={3}>
-                <OutlinedButton
-                  fullWidth
-                  startIcon={<TrendingUp />}
-                  onClick={() => setSortBy("confidence")}
-                  sx={{
-                    borderRadius: 3,
-                    justifyContent: "flex-start",
-                    py: 1.5,
-                  }}
-                >
-                  Sort by Highest Confidence
-                </OutlinedButton>
-                <OutlinedButton
-                  fullWidth
-                  startIcon={<AttachMoney />}
-                  onClick={() => setSortBy("return")}
-                  sx={{
-                    borderRadius: 3,
-                    justifyContent: "flex-start",
-                    py: 1.5,
-                  }}
-                >
-                  Sort by Highest Return
-                </OutlinedButton>
-                <OutlinedButton
-                  fullWidth
-                  startIcon={<Security />}
-                  onClick={() => setFilterRisk("low")}
-                  sx={{
-                    borderRadius: 3,
-                    justifyContent: "flex-start",
-                    py: 1.5,
-                  }}
-                >
-                  Show Low Risk Only
-                </OutlinedButton>
-              </Stack>
-
-              {/* Performance Summary */}
-              <Divider
-                sx={{ my: 3, borderColor: alpha(theme.palette.divider, 0.1) }}
-              />
-              <Typography
-                variant="h6"
-                gutterBottom
-                fontWeight={700}
-                sx={{ mb: 3 }}
-              >
-                <Box component="span" sx={{ opacity: 0.8 }}>
-                  📈
-                </Box>{" "}
-                Performance Summary
-              </Typography>
-              <Stack spacing={2}>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Typography variant="body2" color="text.secondary">
-                    Filtered Slips:
-                  </Typography>
-                  <Typography variant="body1" fontWeight={700}>
-                    {filteredSlips.length}
-                  </Typography>
-                </Box>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Typography variant="body2" color="text.secondary">
-                    Avg Confidence:
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    fontWeight={700}
-                    sx={{
-                      color: theme.palette.success.light,
-                    }}
-                  >
-                    {statistics?.avgConfidence}%
-                  </Typography>
-                </Box>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Typography variant="body2" color="text.secondary">
-                    Avg Potential Return:
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    fontWeight={700}
-                    sx={{
-                      color: theme.palette.warning.light,
-                    }}
-                  >
-                    €{statistics?.avgReturn}
-                  </Typography>
-                </Box>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Typography variant="body2" color="text.secondary">
-                    Highest Return:
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    fontWeight={700}
-                    sx={{
-                      color: theme.palette.primary.light,
-                    }}
-                  >
-                    €{statistics?.highestReturn}
-                  </Typography>
-                </Box>
-              </Stack>
-            </StickySidebar>
-          </Grid>
-        </Grid>
+      {/* Pagination */}
+      {state.filteredSlips.length > PAGE_SIZE && (
+        <Box display="flex" justifyContent="center" mt={3}>
+          <Pagination
+            count={Math.ceil(state.filteredSlips.length / PAGE_SIZE)}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+            sx={{
+              "& .MuiPaginationItem-root": {
+                color: customTheme.colors.text.primary,
+                "&.Mui-selected": {
+                  background: `linear-gradient(135deg, ${customTheme.colors.accent.primary} 0%, ${customTheme.colors.accent.primaryHover} 100%)`,
+                  color: "white",
+                },
+              },
+            }}
+          />
+        </Box>
       )}
 
-      {/* Slip Detail Modal */}
-      {selectedSlip && (
+      {modalState.selectedSlip && (
         <SlipDetailModal
-          open={detailModalOpen}
-          onClose={() => setDetailModalOpen(false)}
-          slip={selectedSlip}
+          open={modalState.open}
+          onClose={handleCloseModal}
+          slip={modalState.selectedSlip}
         />
       )}
+
+      {/* Footer Stats */}
+      <Paper
+        sx={{
+          p: 2,
+          mt: 3,
+          background: alpha(customTheme.colors.surface.card, 0.8),
+          border: `1px solid ${alpha(customTheme.colors.border.light, 0.1)}`,
+          borderRadius: 2,
+        }}
+      >
+        <Typography variant="caption" color="text.secondary">
+          Showing {state.filteredSlips.length} filtered slips • Total
+          investment: {formatCurrency(state.masterSlip?.stake || 0)} • Average
+          confidence: {state.stats?.averageConfidence.toFixed(1)}%
+        </Typography>
+      </Paper>
     </Container>
   );
-};
+};;
 
 export default GeneratedSlips;

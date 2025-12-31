@@ -249,6 +249,6 @@ Route::get('/generated-slips/{generatedSlipId}', [GeneratedSlipController::class
     ->name('generated-slips.detail');
 
 // Delete all generated slips for a master slip
-Route::delete('/master-slips/{masterSlipId}/generated-slips', [GeneratedSlipController::class, 'destroyAllByMasterSlip'])
+Route::delete('/delete-generated-slips/{id}', [MasterSlipController::class, 'deleteGeneratedSlips'])
     ->where('masterSlipId', '[0-9]+')
     ->name('generated-slips.destroy-all');

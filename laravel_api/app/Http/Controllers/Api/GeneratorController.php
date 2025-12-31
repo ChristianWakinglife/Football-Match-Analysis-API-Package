@@ -39,6 +39,7 @@ use App\Jobs\GenerateSlipsJob;
 use App\Jobs\ProcessPythonRequest;
 use App\Models\GeneratorJob;
 use App\Models\Slip;
+use App\Models\MasterSlip;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
@@ -528,6 +529,68 @@ class GeneratorController extends Controller
         }
     }
 
+    public function deleteGeneratedSlips($masterSlipId)
+    {
+        Log::info('🗑️ Deleting all generated slips for master slip', [
+            'master_slip_id' => $masterSlipId,
+        ]);
+
+        try {
+            // Find the master slip first
+            $masterSlip = MasterSlip::find($masterSlipId);
+
+            if (!$masterSlip) {
+                Log::warning('❌ Master slip not found for deletion', [
+                    'master_slip_id' => $masterSlipId,
+                ]);
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Master slip not found',
+                ], 404);
+            }
+
+            // Get count before deletion for logging
+            $generatedSlipsCount = $masterSlip->generatedSlips()->count();
+
+            // Delete all generated slips related to this master slip
+            $deletedCount = $masterSlip->generatedSlips()->delete();
+
+            // Update master slip status to show no generated slips
+            $masterSlip->update([
+                'total_generated_slips' => 0,
+                'failed_slips_count' => 0,
+                'engine_version' => null,
+                'status' => 'ready',
+            ]);
+
+            Log::info('✅ All generated slips deleted', [
+                'master_slip_id' => $masterSlipId,
+                'deleted_count' => $deletedCount,
+                'previous_count' => $generatedSlipsCount,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => "Successfully deleted all {$deletedCount} generated slips",
+                'deleted_count' => $deletedCount,
+                'master_slip_id' => $masterSlipId,
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('💥 Failed to delete generated slips', [
+                'master_slip_id' => $masterSlipId,
+                'error' => $e->getMessage(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete generated slips',
+                'error' => config('app.debug') ? $e->getMessage() : null,
+            ], 500);
+        }
+    }
+
     /**
      * Prepare data for Python service request.
      */
@@ -761,65 +824,5 @@ class GeneratorController extends Controller
     }
 
 
-    public function destroyAllByMasterSlip($masterSlipId)
-{
-    Log::info('🗑️ Deleting all generated slips for master slip', [
-        'master_slip_id' => $masterSlipId,
-    ]);
 
-    try {
-        // Find the master slip first
-        $masterSlip = MasterSlip::find($masterSlipId);
-        
-        if (!$masterSlip) {
-            Log::warning('❌ Master slip not found for deletion', [
-                'master_slip_id' => $masterSlipId,
-            ]);
-            
-            return response()->json([
-                'success' => false,
-                'message' => 'Master slip not found',
-            ], 404);
-        }
-
-        // Get count before deletion for logging
-        $generatedSlipsCount = $masterSlip->generatedSlips()->count();
-        
-        // Delete all generated slips related to this master slip
-        $deletedCount = $masterSlip->generatedSlips()->delete();
-        
-        // Update master slip status to show no generated slips
-        $masterSlip->update([
-            'total_generated_slips' => 0,
-            'failed_slips_count' => 0,
-            'engine_version' => null,
-            'status' => 'ready',
-        ]);
-
-        Log::info('✅ All generated slips deleted', [
-            'master_slip_id' => $masterSlipId,
-            'deleted_count' => $deletedCount,
-            'previous_count' => $generatedSlipsCount,
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => "Successfully deleted all {$deletedCount} generated slips",
-            'deleted_count' => $deletedCount,
-            'master_slip_id' => $masterSlipId,
-        ]);
-
-    } catch (\Exception $e) {
-        Log::error('💥 Failed to delete generated slips', [
-            'master_slip_id' => $masterSlipId,
-            'error' => $e->getMessage(),
-        ]);
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Failed to delete generated slips',
-            'error' => config('app.debug') ? $e->getMessage() : null,
-        ], 500);
-    }
-}
 }

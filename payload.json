@@ -1,0 +1,2133 @@
+{
+    "success": true,
+    "message": "Generated slips retrieved successfully",
+    "data": {
+        "master_slip": {
+            "id": 10,
+            "custom_id": null,
+            "stake": 250,
+            "currency": "EUR",
+            "status": "processed",
+            "total_matches": null,
+            "risk_profile": null,
+            "created_at": "2025-12-29T17:50:11.000000Z",
+            "total_generated_slips": null,
+            "failed_slips_count": null,
+            "engine_version": null
+        },
+        "generated_slips": [
+            {
+                "id": 186,
+                "slip_id": "SLIP_000085",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 187,
+                "slip_id": "SLIP_000086",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 188,
+                "slip_id": "SLIP_000087",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 189,
+                "slip_id": "SLIP_000088",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 190,
+                "slip_id": "SLIP_000089",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 191,
+                "slip_id": "SLIP_000090",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 192,
+                "slip_id": "SLIP_000091",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 193,
+                "slip_id": "SLIP_000092",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 194,
+                "slip_id": "SLIP_000093",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 196,
+                "slip_id": "SLIP_000095",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 198,
+                "slip_id": "SLIP_000097",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 199,
+                "slip_id": "SLIP_000098",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 200,
+                "slip_id": "SLIP_000099",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 201,
+                "slip_id": "SLIP_000100",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 169,
+                "slip_id": "SLIP_000068",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 170,
+                "slip_id": "SLIP_000069",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 171,
+                "slip_id": "SLIP_000070",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 172,
+                "slip_id": "SLIP_000071",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 173,
+                "slip_id": "SLIP_000072",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 174,
+                "slip_id": "SLIP_000073",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 176,
+                "slip_id": "SLIP_000075",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 164,
+                "slip_id": "SLIP_000063",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 178,
+                "slip_id": "SLIP_000077",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 179,
+                "slip_id": "SLIP_000078",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 180,
+                "slip_id": "SLIP_000079",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 181,
+                "slip_id": "SLIP_000080",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 182,
+                "slip_id": "SLIP_000081",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 183,
+                "slip_id": "SLIP_000082",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 184,
+                "slip_id": "SLIP_000083",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 185,
+                "slip_id": "SLIP_000084",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 177,
+                "slip_id": "SLIP_000076",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 166,
+                "slip_id": "SLIP_000065",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            },
+            {
+                "id": 195,
+                "slip_id": "SLIP_000094",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 197,
+                "slip_id": "SLIP_000096",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 168,
+                "slip_id": "SLIP_000067",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 175,
+                "slip_id": "SLIP_000074",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 158,
+                "slip_id": "SLIP_000057",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 154,
+                "slip_id": "SLIP_000053",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 155,
+                "slip_id": "SLIP_000054",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 156,
+                "slip_id": "SLIP_000055",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 157,
+                "slip_id": "SLIP_000056",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 159,
+                "slip_id": "SLIP_000058",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 160,
+                "slip_id": "SLIP_000059",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 161,
+                "slip_id": "SLIP_000060",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 162,
+                "slip_id": "SLIP_000061",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 163,
+                "slip_id": "SLIP_000062",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 165,
+                "slip_id": "SLIP_000064",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 167,
+                "slip_id": "SLIP_000066",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:16.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 152,
+                "slip_id": "SLIP_000051",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:15.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            },
+            {
+                "id": 153,
+                "slip_id": "SLIP_000052",
+                "stake": 1.45,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 179.99,
+                "risk_level": "Medium",
+                "confidence_score": 0.1,
+                "variation_type": "opposite",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:15.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313.1,
+                    "expected_value": 0.18
+                }
+            }
+        ],
+        "summary": {
+            "total_slips": 50,
+            "total_investment": 250.0999999999998,
+            "total_possible_return": 31044.940000000028,
+            "average_confidence": 0.34,
+            "risk_distribution": {
+                "High": {
+                    "count": 0,
+                    "percentage": 0
+                },
+                "Medium": {
+                    "count": 50,
+                    "percentage": 100
+                },
+                "Low": {
+                    "count": 0,
+                    "percentage": 0
+                }
+            },
+            "top_slip": {
+                "id": 186,
+                "slip_id": "SLIP_000085",
+                "stake": 7,
+                "total_odds": 124.13,
+                "calculated_odds": 124.13,
+                "possible_return": 868.91,
+                "risk_level": "Medium",
+                "confidence_score": 0.48,
+                "variation_type": "core",
+                "edge_score": 0,
+                "created_at": "2025-12-30T16:46:17.000000Z",
+                "legs": [
+                    {
+                        "match_id": "LAL-20251221-057",
+                        "market": "Match Result",
+                        "selection": "draw",
+                        "odds": 3.5,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "PRE-20251226-058",
+                        "market": "Match Result",
+                        "selection": "2-0",
+                        "odds": 16.65,
+                        "is_fallback": false
+                    },
+                    {
+                        "match_id": "LAL-20251229-059",
+                        "market": "Match Result",
+                        "selection": "away_+1.0",
+                        "odds": 2.13,
+                        "is_fallback": false
+                    }
+                ],
+                "legs_count": 3,
+                "metrics": {
+                    "roi_percentage": 12313,
+                    "expected_value": 4.17
+                }
+            }
+        }
+    },
+    "count": 50
+}
