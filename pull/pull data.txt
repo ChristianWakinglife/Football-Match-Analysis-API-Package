@@ -1,4 +1,56 @@
-peace be still
-[2025-12-31 18:46:30] local.INFO: 📋 Fetching generated slips {"master_slip_id":"10"} 
-[2025-12-31 18:46:31] local.INFO: ✅ Master slip found {"master_slip_id":"10","generated_slips_count":50} 
+   public function getOptimizedSlips($masterSlipId)
+    {
+        Log::info('📋 Fetching optimized slips', ['master_slip_id' => $masterSlipId]);
 
+        try {
+            // Find the master slip with its optimized slips and legs
+            $masterSlip = MasterSlip::with([
+                'optimizedSlips' => function ($query) {
+                    $query->orderBy('created_at', 'desc')
+                        ->with([
+                            'legs' => function ($q) {
+                                $q->orderBy('id', 'asc');
+                            }
+                        ]);
+                }
+            ])->find($masterSlipId);
+
+            if (!$masterSlip) {
+                Log::warning('❌ Master slip not found', ['master_slip_id' => $masterSlipId]);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Master slip not found',
+                    'master_slip_id' => $masterSlipId,
+                ], 404);
+            }
+
+            Log::info('✅ Master slip found', [
+                'master_slip_id' => $masterSlipId,
+                'generated_slips_count' => $masterSlip->generatedSlips->count(),
+            ]);
+
+            // Normalize the response for frontend
+            $normalizedResponse = $this->normalizeOptSlipsResponse($masterSlip);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Optimized slips retrieved successfully',
+                'data' => $normalizedResponse,
+                'count' => count($normalizedResponse['generated_slips']),
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('💥 Error fetching generated slips', [
+                'master_slip_id' => $masterSlipId,
+                'error' => $e->getMessage(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch generated slips',
+                'error' => config('app.debug') ? $e->getMessage() : 'Internal server error',
+            ], 500);
+        }
+    }
+
+    the initial slip_builder is not generate enoung high risk slips,  adjuste Phase 1 to generate more HIGH risk slips
